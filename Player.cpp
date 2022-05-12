@@ -35,7 +35,7 @@ void Player::setStats() {
             if (b == points || b<<points) {
                 damage = damage + b;
             } else {
-                
+                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
             }
             case 2:
             system("cls");
