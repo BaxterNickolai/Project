@@ -1,5 +1,6 @@
 #include <iostream>
-#include <math.h>
+#include <math.h> 
+#include <time.h>
 #include "Monster.h"
 #include "Player.h"
 using namespace std;
@@ -15,8 +16,9 @@ Monster::Monster() {
 }
 
 void Monster::setMonster() {
-    srand(10);
+    srand(time(NULL));
     int a = 1+( rand() % 20 );
+    std::cout<<"random number is "<<a; 
     switch (a) { 
         case 1: mname = "Goblin";
             damage = pow(level, 1.25) + 1;
