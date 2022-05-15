@@ -55,7 +55,8 @@ void Player::setStats() {
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
                 //delay of 3 seconds
-                sleep(3000);
+                sleep(3);
+                break;
             }
             break;
             case 2:
@@ -70,7 +71,8 @@ void Player::setStats() {
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
                 //delay of 3 seconds
-                sleep(3000);
+                sleep(3);
+                break;
             }
             break;
             case 3:
@@ -85,7 +87,8 @@ void Player::setStats() {
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
                 //dealy of 3 seconds
-                sleep(3000);
+                sleep(3);
+                break;
             }
             break;
             case 4:
@@ -100,14 +103,15 @@ void Player::setStats() {
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
                 //delay of 3 seconds
-                sleep(3000);
+                sleep(3);
+                break;
             }
             break;
             }
         } else {
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 3 seconds
-            sleep(3000);
+            sleep(3);
         }
     }
 }
