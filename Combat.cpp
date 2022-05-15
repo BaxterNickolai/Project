@@ -14,10 +14,12 @@ Combat::Combat(){
     std::cout<<"damage: "<<player->damage<<std::endl<<"health: "<<player->maxHealth<<std::endl<<"crit chance: "<<player->critChance<<std::endl<<"dodge: "<<player->dodge<<std::endl;
 }
 void Combat::PreCombat(){
-    //spawns a monster
+    //creates a monster object
     monster = new Monster;
-    //Monster monster;
+    //chooses what monster is spawned
+    monster->setMonster();
     hpMonster = monster->maxHealth;
+    std::cout<<"The monster spawned is: "<<monster->mname<<std::endl; 
 
 }
 void Combat::PostCombat(){

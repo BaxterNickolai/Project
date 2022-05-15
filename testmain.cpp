@@ -6,6 +6,6 @@
 //#include "Combat.h"
 int main(){
     Combat combat;
-    std::cout<<combat.hpPlayer;
+    combat.PreCombat();
     return 0;
 }
