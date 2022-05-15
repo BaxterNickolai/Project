@@ -141,11 +141,6 @@ void Monster::setMonster() {
     }
 }
 
-std::string Monster::getNameMonster() {
-    //returns monsters name
-    return mname;
-}
-
 int Monster::damageCalculator() {
     return 0;
 }
