@@ -10,7 +10,8 @@ Combat::Combat(){
     hpPlayer = player->maxHealth;
     turncount = 0;
     player->setStats();
-    
+    //temporary test to see if setstats works correctly
+    std::cout<<"damage: "<<player->damage<<std::endl<<"health: "<<player->maxHealth<<std::endl<<"crit chance: "<<player->critChance<<std::endl<<"dodge: "<<player->dodge<<std::endl;
 }
 void Combat::PreCombat(){
     //spawns a monster
