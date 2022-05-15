@@ -5,7 +5,7 @@
 class Monster{
     public:
     monster(); //initalised attributes (ints and string)
-    void setNameMonster(); //sets the name of the monster
+    void setMonster(); //sets monsters stats
     std::string getNameMonster(); //returns name of the monster
     int mDamageCalculator(); //damage calculator for the monster
     
