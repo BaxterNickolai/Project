@@ -2,6 +2,7 @@
 #include "Player.h"
 #include <math.h>
 #include <unistd.h>
+#include <stdlib.h>
 using namespace std;
 
 Player::Player() {
@@ -30,10 +31,10 @@ void Player::setStats() {
     //while the points available to give to the players stats is greater than 0, therefore when there are still points to allocate
     while (points>0) {
         //clear console
-        system("cls");
+        system("clear");
         //where does the user want to put the points
         std::cout<<"In what stat do you want to put your points?:"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
-        std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dodge"<<std::endl;
+        std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dodge"<<std::endl<<std::endl<<"> ";
         //takes in user input
         int a;
         std::cin>>a;
@@ -44,8 +45,8 @@ void Player::setStats() {
             switch (a) {
             case 1:
             //clear console and accept user input for how many points to allocate
-            system("cls");
-            std::cout<<"How many points do you want to allocate to Damage?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
+            system("clear");
+            std::cout<<"How many points do you want to allocate to Damage?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
             std::cin>>b;
             //if statement for if points wanting to allocate are within the amount of points remaining or 0
             if (b <= points && b >= 0) {
@@ -56,10 +57,11 @@ void Player::setStats() {
                 //delay of 3 seconds
                 sleep(3000);
             }
+            break;
             case 2:
             //clear console and accept user input for how many points to allocate
-            system("cls");
-            std::cout<<"How many points do you want to allocate to Max Health?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
+            system("clear");
+            std::cout<<"How many points do you want to allocate to Max Health?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
             std::cin>>b;
             //if statement for if points wanting to allocate are within the amount of points remaining or 0
             if (b <= points && b >= 0) {
@@ -70,10 +72,11 @@ void Player::setStats() {
                 //delay of 3 seconds
                 sleep(3000);
             }
+            break;
             case 3:
             //clear console and accept user input for how many points to allocate
-            system("cls");
-            std::cout<<"How many points do you want to allocate to Crit Chance?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
+            system("clear");
+            std::cout<<"How many points do you want to allocate to Crit Chance?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
             std::cin>>b;
             //if statement for if points wanting to allocate are within the amount of points remaining or 0
             if (b <= points && b >= 0) {
@@ -81,13 +84,14 @@ void Player::setStats() {
                 points = points - b;
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
-                //dealy of 3 seconds 
+                //dealy of 3 seconds
                 sleep(3000);
             }
+            break;
             case 4:
             //clear console and accept user input for how many points to allocate
-            system("cls");
-            std::cout<<"How many points do you want to allocate to Dodge?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
+            system("clear");
+            std::cout<<"How many points do you want to allocate to Dodge?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
             std::cin>>b;
             //if statement for if points wanting to allocate are within the amount of points remaining or 0
             if (b <= points && b >= 0) {
@@ -97,7 +101,8 @@ void Player::setStats() {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
                 //delay of 3 seconds
                 sleep(3000);
-            } 
+            }
+            break;
             }
         } else {
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
