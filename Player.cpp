@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+#include <math.h>
 #include <unistd.h>
 using namespace std;
 
