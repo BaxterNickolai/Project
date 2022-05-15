@@ -15,4 +15,5 @@ class Combat{
     int selectMove();
     
     
-}
+};
+#endif //COMBAT_H_
