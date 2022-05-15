@@ -6,9 +6,10 @@
 Combat::Combat(){
     //sets the initial current health of player
     player = new Player;
-    //Player player;
+    player->setStats();
     hpPlayer = player->maxHealth;
     turncount = 0;
+    player->setStats();
     
 }
 void Combat::PreCombat(){
