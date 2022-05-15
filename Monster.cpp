@@ -124,5 +124,5 @@ std::string Monster::getNameMonster() {
 }
 
 int Monster::mDamageCalculator() {
-    
+
 }
