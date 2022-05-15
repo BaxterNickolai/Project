@@ -14,6 +14,6 @@ class Monster{
     int critChance; //critical chance of the monster
     int dodge; //dodge chance of the monster
     int level; //level of the monster
-    std::string mname; //name of the monster
+    std::string name; //name of the monster
 };
 #endif //MONSTER_H_

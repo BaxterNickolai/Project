@@ -69,6 +69,7 @@ void Combat::fight(){
 }
 
 void Combat::UserInterface(){
+    //
 }
 int Combat::SelectMove(){
     return 1;
