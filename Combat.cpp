@@ -75,6 +75,7 @@ void Combat::fight(){
             break;
         } else if (hpMonster < 1) {
             Combat::PostCombat();
+            break;
         }
     }
 }
@@ -84,37 +85,40 @@ void Combat::UserInterface(){
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
     if (monster->dodge>player->dodge) {
         sleep(1);
+        system ("clear")
         std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster-damage<<" damage!"<<std::endl<<std::endl;
-        return 1;
     } else {
         sleep(2);
         std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
-        return 2;
     }
 }
 
 int Combat::SelectMove(){
-    std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
-    std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-    int a;
-    std::cin>>a;
-    if (0<a<5) {
-        switch (a) {
-        case 1:
-        return 3;
+    while (1==1) {
+        std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
+        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
+        int a;
+        std::cin>>a;
+        if (0<a<5) {
+            switch (a) {
+            case 1:
+            return 3;
+            break;
+            case 2:
+            return 2;
+            break;
+            case 3:
+            return 3;
+            break;
+            case 4:
+            return 4;
+            break;
+            }
         break;
-        case 2:
-        return 2;
-        break;
-        case 3:
-        return 3;
-        break;
-        case 4:
-        return 4;
-        break;
-        }
-    } else {
-        std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
-        //delay of 3 seconds
-        sleep(3);
+        } else {
+            std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
+            //delay of 2 seconds
+            sleep(2);
     }
+    }
+}
