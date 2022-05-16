@@ -12,8 +12,8 @@ class Player{
     int damage; //damage level of player
     int maxHealth; //maximum health level of player
     int critChance; //critical chance level of player
-    int dodge; //dodge level of player
-    int points; //how many points are available for the player to increase their stats level (damage, maxHealth, critCahnce and dodge)
+    int dexterity; //dexterity level of player
+    int points; //how many points are available for the player to increase their stats level (damage, maxHealth, critCahnce and dexterity)
     int xp; //the xp of the character (contributes to the level)
     int level; //the level the character is on, which increases based on xp, affected by combat and affects stats level
     std::string name; //the name of player

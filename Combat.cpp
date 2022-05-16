@@ -11,8 +11,9 @@ Combat::Combat(){
     turncount = 0;
     player->setStats();
     //temporary test to see if setstats works correctly
-    std::cout<<"damage: "<<player->damage<<std::endl<<"health: "<<player->maxHealth<<std::endl<<"crit chance: "<<player->critChance<<std::endl<<"dodge: "<<player->dodge<<std::endl;
+    std::cout<<"damage: "<<player->damage<<std::endl<<"health: "<<player->maxHealth<<std::endl<<"crit chance: "<<player->critChance<<std::endl<<"dexterity: "<<player->dexterity<<std::endl;
 }
+
 void Combat::PreCombat(){
     //creates a monster object
     monster = new Monster;
@@ -22,6 +23,7 @@ void Combat::PreCombat(){
     std::cout<<"The monster spawned is: "<<monster->name<<std::endl; 
 
 }
+
 void Combat::PostCombat(){
     //gives the player xp after combat ends
     player->xp++;
@@ -38,13 +40,14 @@ void Combat::PostCombat(){
             break;
             case 3: player->critChance++;
             break;
-            case 4: player->dodge++;
+            case 4: player->dexterity++;
             break;
         }
         player->level++;
         
     }
 }
+
 void Combat::fight(){
     //while plyer is not dead player cna attack. after player attacks, monster also attacks if it is not dead, ending the turn
     while(hpPlayer>0){
@@ -53,8 +56,8 @@ void Combat::fight(){
         int move = SelectMove();
         if (0<move<4) {
             //if the player chooses to attack
-            if (monster->dodge>player->dodge) {
-                //if the monster has more dodge stats than the player they attack first
+            if (monster->dexterity>player->dexterity) {
+                //if the monster has more dexterity stats than the player they attack first
                 hpPlayer = hpPlayer-monster->damage;
                 hpMonster = hpMonster-player->damage*move;
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
@@ -68,10 +71,10 @@ void Combat::fight(){
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
             } 
         } else {
-            //if the player chooses to dodge
+            //if the player chooses to dexterity
             //gives number between 0 and 100 chnces for player and monster
-            int playerChance = ((rand() % 25)+25)*log(player->dodge);
-            int monsterChance = ((rand() % 25)+25)*log(monster->dodge);
+            int playerChance = ((rand() % 25)+25)*log(player->dexterity);
+            int monsterChance = ((rand() % 25)+25)*log(monster->dexterity);
             if (monsterChance>playerChance) {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //monster attacks first and player looses its turn.
@@ -96,7 +99,7 @@ void Combat::fight(){
 void Combat::UserInterface(){
     system("clear");
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
-    if (monster->dodge>player->dodge) {
+    if (monster->dexterity>player->dexterity) {
         sleep(1);
         system ("clear")
         std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster-damage<<" damage!"<<std::endl<<std::endl;
@@ -109,7 +112,7 @@ void Combat::UserInterface(){
 int Combat::SelectMove(){
     while (1==1) {
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
-        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
+        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt dexterity"<<std::endl<<std::endl<<"> ";
         int a;
         std::cin>>a;
         if (0<a<5) {
