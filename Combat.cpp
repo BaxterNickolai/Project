@@ -69,6 +69,17 @@ void Combat::fight(){
             } 
         } else {
             //if the player chooses to dodge
+            //gives number between 0 and 100 chnces for player and monster
+            int playerChance = ((rand() % 25)+25)*log(player->dodge);
+            int monsterChance = ((rand() % 25)+25)*log(monster->dodge);
+            if (monsterChance>playerChance) {
+                //need to add interface that explains how much damage was taken and how much damage was dealt.
+                //monster attacks first and player looses its turn.
+            } else {
+                //need to add interface that explains how much damage was taken and how much damage was dealt.
+                //player attacks first and monster looses its turn.
+            }
+            
             
         }
         if(hpPlayer < 1) {
@@ -116,6 +127,7 @@ int Combat::SelectMove(){
             return 3;
             break;
             case 4:
+            system("clear");
             return 4;
             break;
             }
