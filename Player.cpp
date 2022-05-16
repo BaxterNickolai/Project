@@ -9,7 +9,7 @@ Player::Player() {
     //initalising the starting values for the attributes contained in Player.h
     name = "?";
     damage = 1;
-    maxHealth = 1;
+    maxHealth = 50;
     critChance = 1;
     dexterity = 1;
     xp = 0;

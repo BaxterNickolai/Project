@@ -37,25 +37,28 @@ void Combat::PostCombat(){
         //randomly cooses what stat gets improved upon level up
         int stat = 1+( rand() % 5 );
         player->level++;
-        std::cout<<"You successfully defeated the "<<monster->name<<"!"<<std::endl;
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
         switch (stat){
             case 1: player->maxHealth++;
-                    std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl;
+                    std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
                     break;
             case 2: player->damage++;
-                    std::cout<<"Damage has increased: "<<player->damage-1<<" -> "<<player->damage<<std::endl;
+                    std::cout<<"Damage has increased: "<<player->damage-1<<" -> "<<player->damage<<std::endl<<std::endl;
                     break;
             case 3: player->critChance++;
-                    std::cout<<"Critical Chance has increased: "<<player->critChance-1<<" -> "<<player->critChance<<std::endl;
+                    std::cout<<"Critical Chance has increased: "<<player->critChance-1<<" -> "<<player->critChance<<std::endl<<std::endl;
                     break;
             case 4: player->dexterity++;
-                    std::cout<<"Dexterity has increased: "<<player->dexterity-1<<" -> "<<player->dexterity<<std::endl;
+                    std::cout<<"Dexterity has increased: "<<player->dexterity-1<<" -> "<<player->dexterity<<std::endl<<std::endl;
                     break;
         }
     }
-    //sleep(3);
-    //Combat::PreCombat();
+    std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
+    int d;
+    std::cin>>d;
+    system("clear");
+    hpPlayer = player->maxHealth;
+    Combat::PreCombat();
 }
 
 void Combat::fight(){
@@ -66,26 +69,25 @@ void Combat::fight(){
     while(1==1){
         if(hpPlayer < 1) {
             //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
-            std::cout<<"game over";
+            std::cout<<"The "<<monster->name<<" killed you in battle!";
             break;
         } else if (hpMonster < 1) {
-            std::cout<<"game win";
             Combat::PostCombat();
             break;
         }
         turncount++;
         int move = SelectMove();
         sleep(3);
-        if (turncount>0) {
-            std::cout<<"You dealt "<<(monster->maxHealth)-hpMonster<<" damage to the monster!"<<std::endl;
-            std::cout<<"The monster dealt "<<(player->maxHealth)-hpPlayer<<" damage to you!"<<std::endl<<std::endl;
-        }
         if (0<move<4) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
                 //if the monster has more dexterity stats than the player they attack first
                 hpPlayer = hpPlayer-monster->damage;
                 hpMonster = hpMonster-player->damage*move;
+                if (turncount>0) {
+                    std::cout<<"You dealt "<<(monster->maxHealth)-hpMonster<<" damage to the monster!"<<std::endl;
+                    std::cout<<"The monster dealt "<<(player->maxHealth)-hpPlayer<<" damage to you!"<<std::endl<<std::endl;
+                }
                 if (hpPlayer<0) {
                     hpPlayer = 0;
                 } else if (hpMonster<0) {
@@ -100,6 +102,10 @@ void Combat::fight(){
                 int damageDealt = player->damage*move;
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage;
+                }
+                if (turncount>0) {
+                    std::cout<<"You dealt "<<(monster->maxHealth)-hpMonster<<" damage to the monster!"<<std::endl;
+                    std::cout<<"The monster dealt "<<(player->maxHealth)-hpPlayer<<" damage to you!"<<std::endl<<std::endl;
                 }
                 if (hpPlayer<0) {
                     hpPlayer = 0;
@@ -144,10 +150,10 @@ void Combat::UserInterface(){
 }
 
 int Combat::SelectMove(){
+    int a = 0;
     while (1==1) {
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        int a;
         std::cin>>a;
         if (0<a<5) {
             switch (a) {
