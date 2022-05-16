@@ -71,6 +71,7 @@ void Combat::fight(){
 void Combat::UserInterface(){
     std::cout<<"A "<<
 }
+
 int Combat::SelectMove(){
     std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
     std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
