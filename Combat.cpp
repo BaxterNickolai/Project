@@ -54,8 +54,8 @@ void Combat::PostCombat(){
                     break;
         }
     }
-    sleep(3);
-    Combat::PreCombat();
+    //sleep(3);
+    //Combat::PreCombat();
 }
 
 void Combat::fight(){
@@ -120,6 +120,7 @@ void Combat::fight(){
                 } else {
                     std::cout<<"(0/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
                 }
+            }
         } else {
             //if the player chooses to dodge
             //gives number between 0 and 100 chance for dodge for player and monster
