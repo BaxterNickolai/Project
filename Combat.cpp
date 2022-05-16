@@ -86,22 +86,14 @@ void Combat::fight(){
                 //if the monster has more dexterity stats than the player they attack first
                 hpPlayer = hpPlayer-monster->damage;
                 hpMonster = hpMonster-player->damage*move;
+                if (hpPlayer<0) {
+                    hpPlayer = 0;
+                } else if (hpMonster<0) {
+                    hpMonster = 0;
+                }
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                if (hpMonster>0) {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                }
-                if (hpMonster>0 && hpPlayer>0) {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else if (hpMonster<0 && hpPlayer>0) {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else if (hpMonster>0 && hpPlayer<0) {
-                    std::cout<<"(0/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else {
-                    std::cout<<"(0/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                }
+                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
             } else {
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move;
@@ -109,17 +101,14 @@ void Combat::fight(){
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage;
                 }
+                if (hpPlayer<0) {
+                    hpPlayer = 0;
+                } else if (hpMonster<0) {
+                    hpMonster = 0;
+                }
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                if (hpMonster>0 && hpPlayer>0) {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else if (hpMonster<0 && hpPlayer>0) {
-                    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else if (hpMonster>0 && hpPlayer<0) {
-                    std::cout<<"(0/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else {
-                    std::cout<<"(0/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                }
+                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
             }
         } else {
             //if the player chooses to dodge
@@ -143,16 +132,11 @@ void Combat::UserInterface(){
         system ("clear");
         std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster->damage<<" damage!"<<std::endl<<std::endl;
         hpPlayer = hpPlayer-monster->damage;
-        std::cout<<"Player's Health      Monster's Health"<<std::endl;
-        if (hpMonster>0 && hpPlayer>0) {
-            std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-        } else if (hpMonster<0 && hpPlayer>0) {
-            std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-        } else if (hpMonster>0 && hpPlayer<0) {
-            std::cout<<"(0/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-        } else {
-            std::cout<<"(0/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
+        if (hpPlayer<0) {
+            hpPlayer = 0;
         }
+        std::cout<<"Player's Health      Monster's Health"<<std::endl;
+        std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
     } else {
         sleep(2);
         std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
