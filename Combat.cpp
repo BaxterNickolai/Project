@@ -57,6 +57,7 @@ void Combat::fight(){
                 //if the monster has more dodge stats than the player they attack first
                 hpPlayer = hpPlayer-monster->damage;
                 hpMonster = hpMonster-player->damage*move;
+                //need to add interface that explains how much damage was taken and how much damage was dealt.
             } else {
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move;
@@ -64,6 +65,7 @@ void Combat::fight(){
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage;
                 }
+                //need to add interface that explains how much damage was taken and how much damage was dealt.
             } 
         } else {
             //if the player chooses to dodge
@@ -102,12 +104,15 @@ int Combat::SelectMove(){
         if (0<a<5) {
             switch (a) {
             case 1:
-            return 3;
+            system("clear");
+            return 1;
             break;
             case 2:
+            system("clear");
             return 2;
             break;
             case 3:
+            system("clear");
             return 3;
             break;
             case 4:
@@ -119,6 +124,6 @@ int Combat::SelectMove(){
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 2 seconds
             sleep(2);
-    }
+        }
     }
 }
