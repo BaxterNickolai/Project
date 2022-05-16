@@ -1,8 +1,11 @@
 #include "Combat.h"
 #include "Player.h"
 #include "Monster.h"
-#include <iostream> 
+#include <iostream>
+#include <unistd.h>
+#include <stdlib.h>
 #include <math.h>
+#include <time.h>
 Combat::Combat(){
     //sets the initial current health of player
     player = new Player;
@@ -98,11 +101,11 @@ void Combat::UserInterface(){
     system("clear");
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
     if (monster->dexterity>player->dexterity) {
-        sleep(1);
-        system ("clear")
-        std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster-damage<<" damage!"<<std::endl<<std::endl;
-    } else {
         sleep(2);
+        system ("clear");
+        std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster->damage<<" damage!"<<std::endl<<std::endl;
+    } else {
+        sleep(3);
         std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
     }
 }
@@ -139,4 +142,5 @@ int Combat::SelectMove(){
             sleep(2);
         }
     }
+    return 0;
 }
