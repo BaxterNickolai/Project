@@ -82,8 +82,6 @@ void Combat::fight(){
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
             }
-            
-            
         }
         if(hpPlayer < 1) {
             //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
@@ -112,7 +110,7 @@ void Combat::UserInterface(){
 int Combat::SelectMove(){
     while (1==1) {
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
-        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt dexterity"<<std::endl<<std::endl<<"> ";
+        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
         int a;
         std::cin>>a;
         if (0<a<5) {
