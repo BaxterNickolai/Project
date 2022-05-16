@@ -8,6 +8,7 @@ class Player{
     void setName(std::string playerName); //sets the name of the player
     std::string getName(); //returns the name of the player
     void setStats(); //sets the stats of the player based on what the user wants to input into each stat
+    
     int damage; //damage level of player
     int maxHealth; //maximum health level of player
     int critChance; //critical chance level of player

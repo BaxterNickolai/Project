@@ -19,7 +19,7 @@ void Combat::PreCombat(){
     //chooses what monster is spawned
     monster->setMonster();
     hpMonster = monster->maxHealth;
-    std::cout<<"The monster spawned is: "<<monster->mname<<std::endl; 
+    std::cout<<"The monster spawned is: "<<monster->name<<std::endl; 
 
 }
 void Combat::PostCombat(){
@@ -51,12 +51,17 @@ void Combat::fight(){
         turncount++;
         Combat::UserInterface();
         int move = SelectMove();
-        hpMonster = hpMonster-player->damage*move;
-        int damageDealt = player->damage*move;
-        if(hpMonster>0){
+        if (monster->dodge>player->dodge) {
             hpPlayer = hpPlayer-monster->damage;
+            hpMonster = hpMonster-player->damage*move;
+        } else {
+            hpMonster = hpMonster-player->damage*move;
+            int damageDealt = player->damage*move;
+            if(hpMonster>0){
+                hpPlayer = hpPlayer-monster->damage;
+            }
         }
-        
+        }
     }
     //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
     if(hpPlayer <1){
@@ -69,7 +74,14 @@ void Combat::fight(){
 }
 
 void Combat::UserInterface(){
-    std::cout<<"A "<<
+    system("clear");
+    std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
+    sleep(2);
+    if (monster->dodge>player->dodge) {
+        std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster-damage<<" damage!"<<std::endl<<std::endl;
+    } else {
+        std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
+    }
 }
 
 int Combat::SelectMove(){
@@ -78,7 +90,6 @@ int Combat::SelectMove(){
     int a;
     std::cin>>a;
     if (0<a<5) {
-        int b;
         switch (a) {
         case 1:
         return 3;
