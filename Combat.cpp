@@ -74,7 +74,7 @@ void Combat::fight(){
         int move = SelectMove();
         sleep(3);
         if (turncount>0) {
-            std::cout<<"you dealt "<<monster->maxHealth<<
+            std::cout<<"you dealt "<<monster->maxHealth;
         }
         if (0<move<4) {
             //if the player chooses to attack
