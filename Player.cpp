@@ -11,7 +11,7 @@ Player::Player() {
     damage = 1;
     maxHealth = 1;
     critChance = 1;
-    dodge = 1;
+    dexterity = 1;
     xp = 0;
     level = 1;
     points = 10;
@@ -34,7 +34,7 @@ void Player::setStats() {
         system("clear");
         //where does the user want to put the points
         std::cout<<"In what stat do you want to put your points?:"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
-        std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dodge"<<std::endl<<std::endl<<"> ";
+        std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dexterity"<<std::endl<<std::endl<<"> ";
         //takes in user input
         int a;
         std::cin>>a;
@@ -94,11 +94,11 @@ void Player::setStats() {
             case 4:
             //clear console and accept user input for how many points to allocate
             system("clear");
-            std::cout<<"How many points do you want to allocate to Dodge?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
+            std::cout<<"How many points do you want to allocate to Dexterity?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
             std::cin>>b;
             //if statement for if points wanting to allocate are within the amount of points remaining or 0
             if (b <= points && b >= 0) {
-               dodge = dodge + b;
+               dexterity = dexterity + b;
                points = points - b;
             } else {
                 std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
@@ -110,8 +110,8 @@ void Player::setStats() {
             }
         } else {
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
-            //delay of 3 seconds
-            sleep(3);
+            //delay of 2 seconds
+            sleep(2);
         }
     }
 }
