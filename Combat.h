@@ -7,17 +7,18 @@
 class Combat{
     public:
     Combat();
+    void PreCombat();
+    void PostCombat();
+    void fight();
+    int SelectMove();
+    void UserInterface();
+
     int hpPlayer;
     Player *player;
     Monster *monster;
     int hpMonster;
     int state;
     int turncount;
-    void PreCombat();
-    void PostCombat();
-    void fight();
-    int SelectMove();
-    void UserInterface();
     
     
 };

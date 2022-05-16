@@ -136,7 +136,7 @@ void Monster::setMonster() {
             damage = pow(level, 1.25);
             maxHealth = pow(level, 1.25) + 5;
             critChance = pow(level, 1.25);
-            dodge = pow(level, 1.25) + 1;
+            dodge = pow(level, 1.25);
         break;
     }
 }

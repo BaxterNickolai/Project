@@ -47,7 +47,7 @@ void Combat::PostCombat(){
 }
 void Combat::fight(){
     //while plyer is not dead player cna attack. after player attacks, monster also attacks if it is not dead, ending the turn
-    while(hpPlayer!=0){
+    while(hpPlayer>0){
         turncount++;
         Combat::UserInterface();
         int move = SelectMove();
@@ -69,7 +69,30 @@ void Combat::fight(){
 }
 
 void Combat::UserInterface(){
+    std::cout<<"A "<<
 }
 int Combat::SelectMove(){
-    return 1;
-}
+    std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
+    std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
+    int a;
+    std::cin>>a;
+    if (0<a<5) {
+        int b;
+        switch (a) {
+        case 1:
+        return 3;
+        break;
+        case 2:
+        return 2;
+        break;
+        case 3:
+        return 3;
+        break;
+        case 4:
+        return 4;
+        break;
+        }
+    } else {
+        std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
+        //delay of 3 seconds
+        sleep(3);
