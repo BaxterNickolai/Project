@@ -7,6 +7,6 @@
 int main(){
     Combat combat;
     combat.PreCombat();
-    combat.fight();
+    //combat.fight();
     return 0;
 }

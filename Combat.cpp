@@ -24,7 +24,7 @@ void Combat::PreCombat(){
     monster->setMonster();
     hpMonster = monster->maxHealth;
     std::cout<<"The monster spawned is: "<<monster->name<<std::endl; 
-
+    Combat::fight();
 }
 
 void Combat::PostCombat(){
@@ -54,6 +54,8 @@ void Combat::PostCombat(){
                     break;
         }
     }
+    sleep(3);
+    Combat::PreCombat();
 }
 
 void Combat::fight(){
