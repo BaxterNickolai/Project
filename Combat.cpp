@@ -67,6 +67,7 @@ void Combat::fight(){
             std::cout<<"game over";
             break;
         } else if (hpMonster < 1) {
+            std::cout<<"game win";
             Combat::PostCombat();
             break;
         }
@@ -74,7 +75,8 @@ void Combat::fight(){
         int move = SelectMove();
         sleep(3);
         if (turncount>0) {
-            std::cout<<"you dealt "<<monster->maxHealth<<
+            std::cout<<"You dealt "<<monster->maxHealth-hpMonster<<" damage to the monster!"<<std::endl;
+            std::cout<<"The monster dealt "<<player->maxHealth-hpPlayer<<" damage to you!"<<std::endl<<std::endl;
         }
         if (0<move<4) {
             //if the player chooses to attack
