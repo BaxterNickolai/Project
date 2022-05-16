@@ -73,6 +73,9 @@ void Combat::fight(){
         turncount++;
         int move = SelectMove();
         sleep(3);
+        if (turncount>0) {
+            std::cout<<"you dealt "<<monster->maxHealth<<
+        }
         if (0<move<4) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
@@ -95,12 +98,15 @@ void Combat::fight(){
                 }
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                if (hpMonster>0) {
+                if (hpMonster>0 && hpPlayer>0) {
                     std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                } else {
+                } else if (hpMonster<0 && hpPlayer>0) {
                     std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-                }
-            } 
+                } else if (hpMonster>0 && hpPlayer<0) {
+                    std::cout<<"(0/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
+                } else
+                    std::cout<<"(0/"<<player->maxHealth<<")                (0/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
+            }
         } else {
             //if the player chooses to dodge
             //gives number between 0 and 100 chance for dodge for player and monster
