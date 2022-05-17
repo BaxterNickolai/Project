@@ -54,8 +54,8 @@ void Combat::PostCombat(){
                     break;
         }
     }
-    //sleep(3);
-    //Combat::PreCombat();
+    sleep(3); 
+    Combat::PreCombat();
 }
 
 void Combat::fight(){
@@ -76,10 +76,6 @@ void Combat::fight(){
         turncount++;
         int move = SelectMove();
         sleep(3);
-        if (turncount>0) {
-            std::cout<<"You dealt "<<(monster->maxHealth)-hpMonster<<" damage to the monster!"<<std::endl;
-            std::cout<<"The monster dealt "<<(player->maxHealth)-hpPlayer<<" damage to you!"<<std::endl<<std::endl;
-        }
         if (0<move<4) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
@@ -105,6 +101,12 @@ void Combat::fight(){
                     hpPlayer = 0;
                 } else if (hpMonster<0) {
                     hpMonster = 0;
+                }
+                if (turncount>0) {
+                    std::cout<<"You dealt "<<player->damage*move<<" damage to the "<<monster->name<<"!"<<std::endl;
+                    if(hpMonster>0){
+                        std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                    }
                 }
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;

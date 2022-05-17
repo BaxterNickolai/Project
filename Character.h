@@ -4,11 +4,11 @@
 #include <string>
 class Character{
     public:
-    int cDamageCalculator();
-    
     int damage;
     int maxHealth;
     int critChance;
-    int dodge;
+    int dexterity;
+    int level;
     std::string name;
-}
+};
+#endif //CHARACTER_H_
