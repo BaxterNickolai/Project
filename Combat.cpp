@@ -89,6 +89,7 @@ void Combat::fight(){
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
     Combat::UserInterface();
     while(1==1){
+        srand(time(NULL));
         if(hpPlayer < 1) {
             //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
             std::cout<<"The "<<monster->name<<" killed you in battle!";
@@ -104,11 +105,27 @@ void Combat::fight(){
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
                 //if the monster has more dexterity stats than the player they attack first
-                hpPlayer = hpPlayer-monster->damage;
-                hpMonster = hpMonster-player->damage*move;
-                if (turncount>0) {
-                    std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
-                    std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                if (CritChance() == 0) {
+                    hpPlayer = hpPlayer-monster->damage*1.25;
+                    hpMonster = hpMonster-player->damage*move;
+                    if (turncount>0) {
+                        std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
+                        std::cout<<"The monster dealt a critical strike of "<<(monster->damage*1.25)<<" damage to you!"<<std::endl<<std::endl;
+                    }
+                } else if (CritChance() == 1) {
+                    hpPlayer = hpPlayer-monster->damage;
+                    hpMonster = hpMonster-player->damage*move*1.25;
+                    if (turncount>0) {
+                        std::cout<<"You dealt a critical strike of "<<player->damage*move*1.25<<" damage to the monster!"<<std::endl;
+                        std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                    }
+                } else {
+                    hpPlayer = hpPlayer-monster->damage;
+                    hpMonster = hpMonster-player->damage*move;
+                    if (turncount>0) {
+                        std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
+                        std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                    }
                 }
                 Death();
                 //interface that explains how much damage was taken and how much damage was dealt.
@@ -139,9 +156,9 @@ void Combat::fight(){
         } else {
             //if the player chooses to dodge
             //gives number between 0 and 100 chance for dodge for player and monster
-            int playerChance = ((rand() % 25)+25)*log(player->dexterity);
-            int monsterChance = ((rand() % 25)+25)*log(monster->dexterity);
-            if (monsterChance>playerChance) {
+            int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
+            int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
+            if (monsterDodgeChance>playerDodgeChance) {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //monster attacks first and player looses its turn.
                 std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
@@ -186,18 +203,17 @@ int Combat::SelectMove(){
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
             while(1!=2){
-                a = InputValidator(1,4);
+                int a = InputValidator(1,4);
                 if (a!=0){
                     assert(a>0&&a<5);
                     return a;
                     system("clear");
-                }       
-                else {
+                } else {
                 std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
-//delay of 2 seconds
+                //delay of 2 seconds
                 sleep(2);
-                a = Combat::InputValidator(1,4);
-        }
+                int a = Combat::InputValidator(1,4);
+                }
             }
     return 0;
 }
@@ -221,4 +237,15 @@ void Combat::Death() {
     } else if (hpMonster<0) {
         hpMonster = 0;
     }
+}
+
+int Combat::CritChance() {
+    int playerCritChance = ((rand() % 25)+25)*log(player->critChance);
+    int monsterCritChance = ((rand() % 25)+25)*log(monster->critChance);
+    if (playerCritChance>monsterCritChance+10) {
+        return 1;
+    } else {
+        return 0;
+    }
+    return 2;
 }

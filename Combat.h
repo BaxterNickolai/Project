@@ -17,7 +17,7 @@ class Combat{
 
     int InputValidator();
     void Death();
-    
+    int CritChance();
     
 
     int hpPlayer;
