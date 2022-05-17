@@ -60,7 +60,7 @@ void Combat::PostCombat(){
         player->level++;
         monster->level++;
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
-        
+
         switch (selectedStat){
             case StatType::maxHealth: player->maxHealth++;
                     std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
