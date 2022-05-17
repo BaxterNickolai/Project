@@ -28,6 +28,7 @@ void Combat::PreCombat(){
     hpPlayer = player->maxHealth;
     turncount = 0;
     std::cout<<"The monster spawned is: "<<monster->name<<std::endl;
+
     Combat::fight();
 }
 
@@ -82,7 +83,6 @@ void Combat::PostCombat(){
     system("clear");
     std::cin.ignore(10000, '\n');
     Combat::PreCombat();
-    delete monster ;
 }
 
 void Combat::fight(){
@@ -228,14 +228,9 @@ int Combat::InputValidator(int min, int max) {
         }else{
         std::cin.clear();
         std::cin.ignore(10000, '\n');
-<<<<<<< HEAD
-        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl 
-=======
-        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<< std::endl<<"> ";  
->>>>>>> 10f772e285effbb8e8c82cc91d24ac2a2ba40b4e
+        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl;
         }
     }
-
     return input;
 }
 
