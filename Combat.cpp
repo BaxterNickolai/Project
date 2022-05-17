@@ -81,6 +81,7 @@ void Combat::PostCombat(){
     std::cin>>d;
     std::cin.clear();
     system("clear");
+    std::cin.ignore(10000, '\n');
     Combat::PreCombat();
 }
 
@@ -132,16 +133,12 @@ void Combat::fight(){
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;
                 std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            } else if (move==4) {
+            } else {
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move;
                 int damageDealt = player->damage*move;
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage;
-                }
-                if (turncount>0) {
-                    std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
-                    std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
                 }
                 Death();
                 if (turncount>0) {
