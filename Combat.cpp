@@ -24,19 +24,24 @@ void Combat::PreCombat(){
     //chooses what monster is spawned
     monster->setMonster();
     hpMonster = monster->maxHealth;
+    hpPlayer = player->maxHealth;
+    turncount = 0;
     std::cout<<"The monster spawned is: "<<monster->name<<std::endl;
 
     Combat::fight();
 }
+
 enum class StatType {
     maxHealth=1,
     damage,
     critChance,
     dexterity,
 };
+
 int RandRange(int min, int max){
     return min+(rand() %(max-min));
 }
+
 void Combat::PostCombat(){
     //gives the player xp after combat ends
     player->xp++;
@@ -75,7 +80,6 @@ void Combat::PostCombat(){
     std::cin>>d;
     std::cin.clear();
     system("clear");
-    hpPlayer = player->maxHealth;
     Combat::PreCombat();
 }
 
@@ -96,7 +100,7 @@ void Combat::fight(){
         turncount++;
         int move = SelectMove();
         sleep(1);
-        if (0<move<4) {
+        if (move==1 || move==2 || move==3) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
                 //if the monster has more dexterity stats than the player they attack first
@@ -106,15 +110,11 @@ void Combat::fight(){
                     std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
                     std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
                 }
-                if (hpPlayer<0) {
-                    hpPlayer = 0;
-                } else if (hpMonster<0) {
-                    hpMonster = 0;
-                }
+                Death();
                 //interface that explains how much damage was taken and how much damage was dealt.
                 std::cout<<"Player's Health      Monster's Health"<<std::endl;
                 std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            } else {
+            } else if (move==4) {
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move;
                 int damageDealt = player->damage*move;
@@ -125,11 +125,7 @@ void Combat::fight(){
                     std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
                     std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
                 }
-                if (hpPlayer<0) {
-                    hpPlayer = 0;
-                } else if (hpMonster<0) {
-                    hpMonster = 0;
-                }
+                Death();
                 if (turncount>0) {
                     std::cout<<"You dealt "<<player->damage*move<<" damage to the "<<monster->name<<"!"<<std::endl;
                     if(hpMonster>0){
@@ -148,9 +144,21 @@ void Combat::fight(){
             if (monsterChance>playerChance) {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //monster attacks first and player looses its turn.
+                std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
+                std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                hpPlayer = hpPlayer-monster->damage;
+                Death();
+                std::cout<<"Player's Health      Monster's Health"<<std::endl;
+                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
             } else {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
+                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl;
+                std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl<<std::endl;
+                hpMonster = hpMonster-player->damage*move;
+                Death();
+                std::cout<<"Player's Health      Monster's Health"<<std::endl;
+                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
             }
         }
     }
@@ -178,7 +186,7 @@ int Combat::SelectMove(){
     while (1==1) {
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        int a = InputValidator();
+        a = InputValidator();
         if (0<a<5) {
             system("clear");
             return a;
@@ -186,12 +194,13 @@ int Combat::SelectMove(){
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 2 seconds
             sleep(2);
-            int a = Combat::InputValidator();
+            a = Combat::InputValidator();
         }
     }
     return 0;
 }
-int Combat::InputValidator(){
+
+int Combat::InputValidator() {
     int input=0;
     std::cin >> input; 
     if (input>0) {
@@ -202,4 +211,12 @@ int Combat::InputValidator(){
         return 100;
     }
     
+}
+
+void Combat::Death() {
+    if (hpPlayer<0) {
+        hpPlayer = 0;
+    } else if (hpMonster<0) {
+        hpMonster = 0;
+    }
 }

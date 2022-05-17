@@ -13,6 +13,9 @@ class Combat{
     int SelectMove();
     void UserInterface();
     int InputValidator();
+    void Death();
+    
+    
     int hpPlayer;
     Player *player;
     Monster *monster;
