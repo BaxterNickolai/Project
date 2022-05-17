@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <limits>
 #include <cassert>
 Combat::Combat(){
     //sets the initial current health of player
@@ -202,6 +203,10 @@ int Combat::SelectMove(){
     int a = 0;
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
+        a = InputValidator(1,4);
+        assert(a>0&&a<5);
+        return a;
+        system("clear");
             while(1!=2){
                 int a = InputValidator(1,4);
                 if (a!=0){
@@ -220,15 +225,17 @@ int Combat::SelectMove(){
 
 int Combat::InputValidator(int min, int max) {
     int input=0;
-    std::cin >> input; 
-    if (input>=min &&input<=max) {
-        return input;
-    } else {
-        std::cout << "Please enter a valid integer" << std::endl; 
+    while(1!=2){
+        if(std::cin >> input&&input<=max&input>=min){
+            break;
+        }else{
         std::cin.clear();
-        return 0;
+        std::cin.ignore(10000, '\n');
+        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<< std::endl; 
+        }
     }
-    
+
+    return input;
 }
 
 void Combat::Death() {
