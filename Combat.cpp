@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <cassert>
 Combat::Combat(){
     //sets the initial current health of player
     player = new Player;
@@ -23,45 +24,57 @@ void Combat::PreCombat(){
     //chooses what monster is spawned
     monster->setMonster();
     hpMonster = monster->maxHealth;
-    std::cout<<"The monster spawned is: "<<monster->name<<std::endl; 
+    std::cout<<"The monster spawned is: "<<monster->name<<std::endl;
+
     Combat::fight();
 }
-
+enum class StatType {
+    maxHealth=1,
+    damage,
+    critChance,
+    dexterity,
+};
+int RandRange(int min, int max){
+    return min+(rand() %(max-min));
+}
 void Combat::PostCombat(){
     //gives the player xp after combat ends
     player->xp++;
-    int XPmax = 3*pow(1.2, player->level); 
+    const int requiredXPbase = 1.2;
+    const int requiredXPscale = 3;
+    int XPmax = requiredXPscale*pow(requiredXPbase, player->level);
+    assert(XPmax>0);
     //allows player to level up
-    if(player->xp==XPmax){
-        player->xp = 0;
+    if(player->xp>=XPmax){
+        player->xp -= XPmax;
         //randomly cooses what stat gets improved upon level up
-        int stat = 1+( rand() % 5 );
+        StatType selectedStat = (StatType) RandRange(1,4);
+        assert((int)selectedStat>=1);
+        assert((int)selectedStat<=4);
         player->level++;
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
-        switch (stat){
-            case 1: player->maxHealth++;
+        
+        switch (selectedStat){
+            case StatType::maxHealth: player->maxHealth++;
                     std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
                     break;
-            case 2: player->damage++;
+            case StatType::damage: player->damage++;
                     std::cout<<"Damage has increased: "<<player->damage-1<<" -> "<<player->damage<<std::endl<<std::endl;
                     break;
-            case 3: player->critChance++;
+            case StatType::critChance: player->critChance++;
                     std::cout<<"Critical Chance has increased: "<<player->critChance-1<<" -> "<<player->critChance<<std::endl<<std::endl;
                     break;
-            case 4: player->dexterity++;
+            case StatType::dexterity: player->dexterity++;
                     std::cout<<"Dexterity has increased: "<<player->dexterity-1<<" -> "<<player->dexterity<<std::endl<<std::endl;
                     break;
         }
     }
-<<<<<<< HEAD
-    sleep(3); 
-=======
+    sleep(3);
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
     int d;
     std::cin>>d;
     system("clear");
     hpPlayer = player->maxHealth;
->>>>>>> 622e7406cf7ecbbb8cbe384e773c31256cfe6480
     Combat::PreCombat();
 }
 
@@ -164,32 +177,27 @@ int Combat::SelectMove(){
     while (1==1) {
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        std::cin>>a;
+        int a = InputValidator();
         if (0<a<5) {
-            switch (a) {
-            case 1:
             system("clear");
-            return 1;
-            break;
-            case 2:
-            system("clear");
-            return 2;
-            break;
-            case 3:
-            system("clear");
-            return 3;
-            break;
-            case 4:
-            system("clear");
-            return 4;
-            break;
-            }
-        break;
+            return a;
         } else {
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 2 seconds
             sleep(2);
+            int a = InputValidator();
         }
     }
     return 0;
+}
+int InputValidator(){
+    int number;
+    if (std::cin >> number) {
+        break;
+    } else {
+        cout << "Please enter a valid integer" << endl;
+        std::cin.clear();
+        std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return n;
 }
