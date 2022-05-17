@@ -228,7 +228,7 @@ int Combat::InputValidator(int min, int max) {
         }else{
         std::cin.clear();
         std::cin.ignore(10000, '\n');
-        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<< std::endl; 
+        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl 
         }
     }
 
