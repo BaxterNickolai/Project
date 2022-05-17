@@ -109,6 +109,7 @@ void Player::setStats() {
             break;
             }
         } else {
+            //if not a valid input e.g. not 1-4
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 2 seconds
             sleep(2);
