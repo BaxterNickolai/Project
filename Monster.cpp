@@ -142,7 +142,3 @@ void Monster::setMonster() {
         break;
     }
 }
-
-int Monster::damageCalculator() {
-    return 0;
-}
