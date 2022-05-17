@@ -69,10 +69,11 @@ void Combat::PostCombat(){
                     break;
         }
     }
-    sleep(3);
+    sleep(1);
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
     int d;
     std::cin>>d;
+    std::cin.clear();
     system("clear");
     hpPlayer = player->maxHealth;
     Combat::PreCombat();
@@ -94,7 +95,7 @@ void Combat::fight(){
         }
         turncount++;
         int move = SelectMove();
-        sleep(3);
+        sleep(1);
         if (0<move<4) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
@@ -185,19 +186,20 @@ int Combat::SelectMove(){
             std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
             //delay of 2 seconds
             sleep(2);
-            int a = InputValidator();
+            int a = Combat::InputValidator();
         }
     }
     return 0;
 }
-int InputValidator(){
-    int number;
-    if (std::cin >> number) {
-        break;
+int Combat::InputValidator(){
+    int input=0;
+    std::cin >> input; 
+    if (input>0) {
+        return input;
     } else {
-        cout << "Please enter a valid integer" << endl;
+        std::cout << "Please enter a valid integer" << std::endl; 
         std::cin.clear();
-        std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return 100;
     }
-    return n;
+    
 }

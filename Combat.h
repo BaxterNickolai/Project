@@ -12,7 +12,7 @@ class Combat{
     void fight();
     int SelectMove();
     void UserInterface();
-
+    int InputValidator();
     int hpPlayer;
     Player *player;
     Monster *monster;
