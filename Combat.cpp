@@ -104,6 +104,7 @@ void Combat::fight(){
         turncount++;
         int move = SelectMove();
         sleep(1);
+        system("clear");
         if (move==1 || move==2 || move==3) {
             //if the player chooses to attack
             if (monster->dexterity>player->dexterity) {
@@ -155,6 +156,7 @@ void Combat::fight(){
         } else {
             //if the player chooses to dodge
             //gives number between 0 and 100 chance for dodge for player and monster
+            srand(time(NULL));
             int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
             int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
             if (monsterDodgeChance>playerDodgeChance) {
