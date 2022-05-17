@@ -12,7 +12,14 @@ class Combat{
     void fight();
     int SelectMove();
     void UserInterface();
+
     int InputValidator(int, int);
+
+    int InputValidator();
+    void Death();
+    
+    
+
     int hpPlayer;
     Player *player;
     Monster *monster;
