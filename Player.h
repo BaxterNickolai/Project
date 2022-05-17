@@ -11,5 +11,6 @@ class Player : public Character{
     void setStats(); //sets the stats of the player based on what the user wants to input into each stat
     int points; //how many points are available for the player to increase their stats level (damage, maxHealth, critCahnce and dexterity)
     int xp; //the xp of the character (contributes to the level)
+    int level; //level of the player
 };
 #endif //PLAYER_H_
