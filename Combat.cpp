@@ -240,8 +240,14 @@ void Combat::Death() {
 }
 
 int Combat::CritChance() {
-    int playerCritChance = ((rand() % 25)+25)*log(player->critChance);
     int monsterCritChance = ((rand() % 25)+25)*log(monster->critChance);
+    if (move == 1) {
+        int playerCritChance = ((rand() % 25)+35)*log(player->critChance);
+    } else if (move == 2) {
+        int playerCritChance = ((rand() % 25)+25)*log(player->critChance);
+    } else {
+        int playerCritChance = ((rand() % 25)+15)*log(player->critChance);
+    }
     if (playerCritChance>monsterCritChance+10) {
         return 1;
     } else {
