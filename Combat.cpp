@@ -58,6 +58,7 @@ void Combat::PostCombat(){
         assert((int)selectedStat>=1);
         assert((int)selectedStat<=4);
         player->level++;
+        monster->level++;
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
         
         switch (selectedStat){
