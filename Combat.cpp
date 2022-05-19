@@ -83,6 +83,7 @@ void Combat::PostCombat(){
     std::cin.clear();
     system("clear");
     std::cin.ignore(10000, '\n');
+    delete monster;
     Combat::PreCombat();
 }
 
