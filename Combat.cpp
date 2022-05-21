@@ -204,12 +204,12 @@ int Combat::SelectMove(){
     int a = 0;
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        a = InputValidator(1,4);
+        a = player->InputValidator(1,4);
         assert(a>0&&a<5);
         return a;
         system("clear");
             while(1!=2){
-                int a = InputValidator(1,4);
+                int a = player->InputValidator(1,4);
                 if (a!=0){
                     assert(a>0&&a<5);
                     return a;
@@ -218,25 +218,12 @@ int Combat::SelectMove(){
                 std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
                 //delay of 2 seconds
                 sleep(2);
-                int a = Combat::InputValidator(1,4);
+                int a = Combat::player->InputValidator(1,4);
                 }
             }
     return 0;
 }
 
-int Combat::InputValidator(int min, int max) {
-    int input=0;
-    while(1!=2){
-        if(std::cin >> input&&input<=max&input>=min){
-            break;
-        }else{
-        std::cin.clear();
-        std::cin.ignore(10000, '\n');
-        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl;
-        }
-    }
-    return input;
-}
 
 void Combat::Death() {
     if (hpPlayer<0) {

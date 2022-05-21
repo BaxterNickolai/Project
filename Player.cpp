@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.h"
 #include <math.h>
+#include "Combat.h"
 #include <unistd.h>
 #include <stdlib.h>
 using namespace std;
@@ -30,89 +31,74 @@ std::string Player::getName() {
 void Player::setStats() {
     //while the points available to give to the players stats is greater than 0, therefore when there are still points to allocate
     while (points>0) {
-        //clear console
-        system("clear");
-        //where does the user want to put the points
-        std::cout<<"In what stat do you want to put your points?:"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
-        std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dexterity"<<std::endl<<std::endl<<"> ";
-        //takes in user input
-        int a;
-        std::cin>>a;
-        //if the user input is in the given range then the switch activates
-        if (0<a<5) {
-            //switch for 4 possible user inputs
-            int b;
-            switch (a) {
-            case 1:
-            //clear console and accept user input for how many points to allocate
-            system("clear");
-            std::cout<<"How many points do you want to allocate to Damage?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
-            std::cin>>b;
-            //if statement for if points wanting to allocate are within the amount of points remaining or 0
-            if (b <= points && b >= 0) {
-                damage = damage + b;
-                points = points - b;
-            } else {
-                std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
-                //delay of 3 seconds
-                sleep(3);
-                break;
-            }
+        int a = selectStat();
+        //switch for 4 possible user inputs
+        selectNum(a);
+    }
+}
+int Player::selectStat(){
+    //clear console
+    system("clear");
+    //where does the user want to put the points
+    std::cout<<"In what stat do you want to put your points?:"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl;
+    std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dexterity"<<std::endl<<std::endl<<"> ";
+    int selectedStat;
+    selectedStat = InputValidator(1,4);
+    return selectedStat;
+}
+void Player::selectNum(int stat){
+    //clear console
+    system ("clear");
+    std::string statName = ".";
+    switch (stat){
+        case 1:
+        statName = "Damage";
+        break;
+        case 2:statName = "Max Health";
+        break;
+        case 3:
+        statName = "Crit Chance";
+        break;
+        case 4:
+        statName = "Dexterity";
+        break;
+    }
+    //how many points does the user want to allocate to a stat
+    std::cout<<"How many points do you want to allocate to "<<statName<<"?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
+    int selectedNum;
+    selectedNum = InputValidator(0,points);
+     switch (stat){
+        case 1:
+        damage = damage+selectedNum;
+        points = points-selectedNum;
+        break;
+        case 2:
+        maxHealth = maxHealth+selectedNum;
+        points = points-selectedNum;
+        break;
+        case 3:
+        critChance = critChance+selectedNum;
+        points = points-selectedNum;
+        break;
+        case 4:
+        dexterity = dexterity+selectedNum;
+        points = points-selectedNum;
+        break;
+    }
+}
+
+
+int Player::InputValidator(int min, int max) {
+    int input=0;
+    while(1!=2){
+        if(std::cin >> input&&input<=max&input>=min){
             break;
-            case 2:
-            //clear console and accept user input for how many points to allocate
-            system("clear");
-            std::cout<<"How many points do you want to allocate to Max Health?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
-            std::cin>>b;
-            //if statement for if points wanting to allocate are within the amount of points remaining or 0
-            if (b <= points && b >= 0) {
-                maxHealth = maxHealth + b;
-                points = points - b;
-            } else {
-                std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
-                //delay of 3 seconds
-                sleep(3);
-                break;
-            }
-            break;
-            case 3:
-            //clear console and accept user input for how many points to allocate
-            system("clear");
-            std::cout<<"How many points do you want to allocate to Crit Chance?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
-            std::cin>>b;
-            //if statement for if points wanting to allocate are within the amount of points remaining or 0
-            if (b <= points && b >= 0) {
-                critChance = critChance + b;
-                points = points - b;
-            } else {
-                std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
-                //dealy of 3 seconds
-                sleep(3);
-                break;
-            }
-            break;
-            case 4:
-            //clear console and accept user input for how many points to allocate
-            system("clear");
-            std::cout<<"How many points do you want to allocate to Dexterity?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
-            std::cin>>b;
-            //if statement for if points wanting to allocate are within the amount of points remaining or 0
-            if (b <= points && b >= 0) {
-               dexterity = dexterity + b;
-               points = points - b;
-            } else {
-                std::cout<<"Invalid amount of points attempting to allocate, going back to main screen"<<std::endl;
-                //delay of 3 seconds
-                sleep(3);
-                break;
-            }
-            break;
-            }
-        } else {
-            //if not a valid input e.g. not 1-4
-            std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
-            //delay of 2 seconds
-            sleep(2);
+        }else{
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl;
+        sleep(2);
         }
     }
+    return input;
 }
