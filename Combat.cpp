@@ -96,12 +96,12 @@ void Combat::UserInterface(){
         if (hpPlayer<0) {
             hpPlayer = 0;
         }
-        std::cout<<"Player's Health      Monster's Health"<<std::endl;
-        std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
     } else {
         sleep(2);
         std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
     }
+    std::cout<<"Player's Health      "<<monster->name<<"'s Health"<<std::endl;
+    std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
 }
 
 int Combat::SelectMove(){
@@ -170,13 +170,13 @@ void Combat::fight(){
                 Death();
             }
             std::cout<<"You dealt ";
-            if(player->crit==2){
+            if(player->crit>1){
                 std::cout<<"a critical strike of "; 
             }
             std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
             if(hpMonster>0){
                 std::cout<<"The monster dealt ";
-                if(monster->crit==2){
+                if(monster->crit>1){
                     std::cout<<"a critical strike of ";
                 }
                 std::cout<<monster->damage*monster->crit<<" to you"<<std::endl;
@@ -214,9 +214,9 @@ void Combat::CritChance() {
     monster->crit = 1;
     player->crit = 1;
     if((rand() % monster->critChance)>(rand() % 20)){
-        monster->crit = 2;
+        monster->crit = 5;
     }
     if((rand() % player->critChance+10/move)>(rand() % 20)){
-        player->crit = 2;
+        player->crit = 5;
     }
 }
