@@ -7,6 +7,5 @@
 int main(){
     Combat combat;
     combat.PreCombat();
-    //combat.fight();
     return 0;
 }

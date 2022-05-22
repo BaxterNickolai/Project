@@ -1,6 +1,7 @@
 #include "Combat.h"
 #include "Player.h"
 #include "Monster.h"
+#include "GameStats.h"
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
@@ -14,9 +15,7 @@ Combat::Combat(){
     player->setStats();
     hpPlayer = player->maxHealth;
     turncount = 0;
-    player->setStats();
-    //temporary test to see if setstats works correctly
-    std::cout<<"damage: "<<player->damage<<std::endl<<"health: "<<player->maxHealth<<std::endl<<"crit chance: "<<player->critChance<<std::endl<<"dexterity: "<<player->dexterity<<std::endl;
+    gamestats = new GameStats;
 }
 
 void Combat::PreCombat(){
@@ -59,6 +58,7 @@ void Combat::PostCombat(){
         assert((int)selectedStat<=4);
         player->level++;
         monster->level++;
+        gamestats->level++;
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
 
         switch (selectedStat){
@@ -76,6 +76,7 @@ void Combat::PostCombat(){
                     break;
         }
     }
+    stats->monstersKilled++;
     sleep(1);
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
     int d;
@@ -137,7 +138,7 @@ void Combat::Death() {
     }
 }
 void Combat::fight(){
-    //while plyer is not dead player cna attack. after player attacks, monster also attacks if it is not dead, ending the turn
+    //while plyer is not dead player can attack. after player attacks, monster also attacks if it is not dead, ending the turn
     system("clear");
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
     Combat::UserInterface();
@@ -158,12 +159,16 @@ void Combat::fight(){
         if (move<4){
             if (monster->dexterity>player->dexterity) {
                 hpPlayer = hpPlayer-monster->damage*1.25*monster->crit;
-                hpMonster = hpMonster-player->damage*move*player->crit;
+                if(hpPlayer>0){
+                    hpMonster = hpMonster-player->damage*move*player->crit;
+                    gamestats->damageDealt+=player->damage*move*player->crit;
+                }
                 Death();
             }
             else{
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move*player->crit;
+                gamestats->damageDealt+=player->damage*move*player->crit;
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage*monster->crit;
                 }
@@ -172,6 +177,7 @@ void Combat::fight(){
             std::cout<<"You dealt ";
             if(player->crit>1){
                 std::cout<<"a critical strike of "; 
+                gamestats->playerCrits++;
             }
             std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
             if(hpMonster>0){
@@ -199,6 +205,7 @@ void Combat::fight(){
                 //player attacks first and monster looses its turn.
                 std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*move<<" damage to the monster!"<<std::endl<<std::endl;
                 hpMonster = hpMonster-player->damage*1.5;
+                gamestats->damageDealt+=player->damage*1.5;
                 Death();
             }
         }
