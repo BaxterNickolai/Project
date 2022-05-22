@@ -7,7 +7,7 @@ class GameStats{
     int monstersKilled;
     int level;
     int playerCrits;
-    int damageDealt;;
+    int damageDealt;
     void printStats();
 }; 
 #endif //GAMESTATS_H_
