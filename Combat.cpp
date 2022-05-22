@@ -76,7 +76,7 @@ void Combat::PostCombat(){
                     break;
         }
     }
-    stats->monstersKilled++;
+    gamestats->monstersKilled++;
     sleep(1);
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
     int d;
@@ -146,6 +146,7 @@ void Combat::fight(){
         if(hpPlayer < 1) {
             //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
             std::cout<<"The "<<monster->name<<" killed you in battle!";
+            gamestats->printStats();
             break;
         } else if (hpMonster < 1) {
             Combat::PostCombat();

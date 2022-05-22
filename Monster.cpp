@@ -24,7 +24,7 @@ void Monster::setMonster() {
         case 1: name = "Goblin";
             damage = pow(level, 1.25) + 1;
             maxHealth = pow(level, 1.25) + 5;
-            critChance = pow(level, 1.25) + 3;
+            critChance = pow(level, 1.25) + 8;
             dexterity = pow(level, 1.25) + 5;
         break;
         case 2: name = "Golem";
@@ -36,7 +36,7 @@ void Monster::setMonster() {
         case 3: name = "Assassin";
             damage = pow(level, 1.25) + 1;
             maxHealth = pow(level, 1.25) + 6;
-            critChance = pow(level, 1.25) + 3;
+            critChance = pow(level, 1.25) + 20;
             dexterity = pow(level, 1.25) + 5;
         break;
         case 4: name = "Baron";
@@ -90,13 +90,13 @@ void Monster::setMonster() {
         case 12: name = "Wizard";
             damage = pow(level, 1.25) + 3;
             maxHealth = pow(level, 1.25) + 10;
-            critChance = pow(level, 1.25) + 5;
+            critChance = pow(level, 1.25) + 15;
             dexterity = pow(level, 1.25) + 2;
         break;
         case 13: name = "Dragon";
             damage = pow(level, 1.25) + 5;
             maxHealth = pow(level, 1.25) + 50;
-            critChance = pow(level, 1.25) + 1;
+            critChance = pow(level, 1.25) + 12;
             dexterity = pow(level, 1.25) + 1;
         break;
         case 14: name = "Griffen";
@@ -137,7 +137,7 @@ void Monster::setMonster() {
         break;
         case 20: name = "Jeff's Mum";
             damage = pow(level, 1.25);
-            maxHealth = pow(level, 1.25) + 50;
+            maxHealth = pow(level, 1.25) + 100;
             critChance = pow(level, 1.25);
             dexterity = pow(level, 1.25);
         break;
