@@ -10,6 +10,7 @@ class Character{
     int critChance; //the crit chance level of the monster or player
     int dexterity; //the dexterity level of the monster or player
     int level; //the level of monster or player
+    int crit; //variable used to determine whether a critical hit happens
     std::string name; //the name of the monster or player
 };
 #endif //CHARACTER_H_

@@ -87,102 +87,6 @@ void Combat::PostCombat(){
     Combat::PreCombat();
 }
 
-void Combat::fight(){
-    //while plyer is not dead player cna attack. after player attacks, monster also attacks if it is not dead, ending the turn
-    system("clear");
-    std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
-    Combat::UserInterface();
-    while(1==1){
-        srand(time(NULL));
-        if(hpPlayer < 1) {
-            //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
-            std::cout<<"The "<<monster->name<<" killed you in battle!";
-            break;
-        } else if (hpMonster < 1) {
-            Combat::PostCombat();
-            break;
-        }
-        turncount++;
-        int move = SelectMove();
-        sleep(1);
-        system("clear");
-        if (move==1 || move==2 || move==3) {
-            //if the player chooses to attack
-            if (monster->dexterity>player->dexterity) {
-                //if the monster has more dexterity stats than the player they attack first
-                if (CritChance() == 0) {
-                    hpPlayer = hpPlayer-monster->damage*1.25;
-                    hpMonster = hpMonster-player->damage*move;
-                    if (turncount>0) {
-                        std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
-                        std::cout<<"The monster dealt a critical strike of "<<(monster->damage*1.25)<<" damage to you!"<<std::endl<<std::endl;
-                    }
-                } else if (CritChance() == 1) {
-                    hpPlayer = hpPlayer-monster->damage;
-                    hpMonster = hpMonster-player->damage*move*1.25;
-                    if (turncount>0) {
-                        std::cout<<"You dealt a critical strike of "<<player->damage*move*1.25<<" damage to the monster!"<<std::endl;
-                        std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                    }
-                } else {
-                    hpPlayer = hpPlayer-monster->damage;
-                    hpMonster = hpMonster-player->damage*move;
-                    if (turncount>0) {
-                        std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl;
-                        std::cout<<"The monster dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                    }
-                }
-                Death();
-                //interface that explains how much damage was taken and how much damage was dealt.
-                std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            } else {
-                //otherwise the player attacks first
-                hpMonster = hpMonster-player->damage*move;
-                int damageDealt = player->damage*move;
-                if(hpMonster>0){
-                    hpPlayer = hpPlayer-monster->damage;
-                }
-                Death();
-                if (turncount>0) {
-                    std::cout<<"You dealt "<<player->damage*move<<" damage to the "<<monster->name<<"!"<<std::endl;
-                    if(hpMonster>0){
-                        std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                    }
-                }
-                //interface that explains how much damage was taken and how much damage was dealt.
-                std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            }
-        } else {
-            //if the player chooses to dodge
-            //gives number between 0 and 100 chance for dodge for player and monster
-            srand(time(NULL));
-            int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
-            int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
-            if (monsterDodgeChance>playerDodgeChance) {
-                //need to add interface that explains how much damage was taken and how much damage was dealt.
-                //monster attacks first and player looses its turn.
-                std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
-                std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                hpPlayer = hpPlayer-monster->damage;
-                Death();
-                std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            } else {
-                //need to add interface that explains how much damage was taken and how much damage was dealt.
-                //player attacks first and monster looses its turn.
-                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl;
-                std::cout<<"You dealt "<<player->damage*move<<" damage to the monster!"<<std::endl<<std::endl;
-                hpMonster = hpMonster-player->damage*move;
-                Death();
-                std::cout<<"Player's Health      Monster's Health"<<std::endl;
-                std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-            }
-        }
-    }
-}
-
 void Combat::UserInterface(){
     if (monster->dexterity>player->dexterity) {
         sleep(1);
@@ -232,21 +136,87 @@ void Combat::Death() {
         hpMonster = 0;
     }
 }
+void Combat::fight(){
+    //while plyer is not dead player cna attack. after player attacks, monster also attacks if it is not dead, ending the turn
+    system("clear");
+    std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
+    Combat::UserInterface();
+    while(1==1){
+        if(hpPlayer < 1) {
+            //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
+            std::cout<<"The "<<monster->name<<" killed you in battle!";
+            break;
+        } else if (hpMonster < 1) {
+            Combat::PostCombat();
+            break;
+        }
+        turncount++;
+        int move = SelectMove();
+        Combat::CritChance();
+        sleep(1);
+        system("clear");
+        if (move<4){
+            if (monster->dexterity>player->dexterity) {
+                hpPlayer = hpPlayer-monster->damage*1.25*monster->crit;
+                hpMonster = hpMonster-player->damage*move*player->crit;
+                Death();
+            }
+            else{
+                //otherwise the player attacks first
+                hpMonster = hpMonster-player->damage*move*player->crit;
+                if(hpMonster>0){
+                    hpPlayer = hpPlayer-monster->damage*monster->crit;
+                }
+                Death();
+            }
+            std::cout<<"You dealt ";
+            if(player->crit==2){
+                std::cout<<"a critical strike of "; 
+            }
+            std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
+            if(hpMonster>0){
+                std::cout<<"The monster dealt ";
+                if(monster->crit==2){
+                    std::cout<<"a critical strike of ";
+                }
+                std::cout<<monster->damage*monster->crit<<" to you"<<std::endl;
+            }
+        }
+        else {
+            //if the player chooses to dodge
+            //gives number between 0 and 100 chance for dodge for player and monster
+            srand(time(NULL));
+            int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
+            int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
+            if (monsterDodgeChance>playerDodgeChance) {
+                //monster attacks first and player looses its turn.
+                std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
+                std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
+                hpPlayer = hpPlayer-monster->damage;
+                Death();
+            } else {
+                //need to add interface that explains how much damage was taken and how much damage was dealt.
+                //player attacks first and monster looses its turn.
+                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*move<<" damage to the monster!"<<std::endl<<std::endl;
+                hpMonster = hpMonster-player->damage*1.5;
+                Death();
+            }
+        }
+        //interface that explains how much damage was taken and how much damage was dealt.
+        std::cout<<"Player's Health      Monster's Health"<<std::endl;
+        std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
+    }
+}
 
-int Combat::CritChance() {
-    int monsterCritChance = ((rand() % 25)+25)*log(monster->critChance);
-    int playerCritChance;
-    if (move == 1) {
-        int playerCritChance = ((rand() % 25)+35)*log(player->critChance);
-    } else if (move == 2) {
-        int playerCritChance = ((rand() % 25)+25)*log(player->critChance);
-    } else {
-        int playerCritChance = ((rand() % 25)+15)*log(player->critChance);
+
+void Combat::CritChance() {
+    srand(time(NULL));
+    monster->crit = 1;
+    player->crit = 1;
+    if((rand() % monster->critChance)>(rand() % 20)){
+        monster->crit = 2;
     }
-    if (playerCritChance>monsterCritChance+10) {
-        return 1;
-    } else {
-        return 0;
+    if((rand() % player->critChance+10/move)>(rand() % 20)){
+        player->crit = 2;
     }
-    return 2;
 }
