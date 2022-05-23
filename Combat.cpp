@@ -15,6 +15,7 @@ Combat::Combat(){
     player->setStats();
     hpPlayer = player->maxHealth;
     turncount = 0;
+    //sets new GameStats for this game
     gamestats = new GameStats;
 }
 
@@ -25,13 +26,13 @@ void Combat::PreCombat(){
     monster->setMonster();
     hpMonster = monster->maxHealth;
     hpPlayer = player->maxHealth;
+    //initalises turncount as 0 and sets Combat::fight();
     turncount = 0;
-    std::cout<<"The monster spawned is: "<<monster->name<<std::endl;
-
     Combat::fight();
 }
 
 enum class StatType {
+    //setting unchangable variables
     maxHealth=1,
     damage,
     critChance,
@@ -39,6 +40,7 @@ enum class StatType {
 };
 
 int RandRange(int min, int max){
+    //returns a random number between a minimum and maximum number
     return min+(rand() %(max-min));
 }
 
@@ -59,8 +61,10 @@ void Combat::PostCombat(){
         player->level++;
         monster->level++;
         gamestats->level++;
+        //prints new level
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
 
+        //informs player of what stat increased
         switch (selectedStat){
             case StatType::maxHealth: player->maxHealth++;
                     std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
@@ -76,28 +80,32 @@ void Combat::PostCombat(){
                     break;
         }
     }
+    //increases number of monsters killed in gamestats
     gamestats->monstersKilled++;
     sleep(1);
+    //gives the player a chance to read before entering something
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
     int d;
     std::cin>>d;
     std::cin.clear();
     system("clear");
     std::cin.ignore(10000, '\n');
+    //deletes the monster previously created
     delete monster;
     Combat::PreCombat();
 }
 
 void Combat::UserInterface(){
+    //for the begining of the fight sequence
     if (monster->dexterity>player->dexterity) {
+        //if the monster dexterity is higher than the players the monster gets to attack first
         sleep(1);
         system ("clear");
         std::cout<<"The "<<monster->name<<" caught you off guard, attacking first and dealing "<<monster->damage<<" damage!"<<std::endl<<std::endl;
         hpPlayer = hpPlayer-monster->damage;
-        if (hpPlayer<0) {
-            hpPlayer = 0;
-        }
+        Death(); //resets players health to 0 if below
     } else {
+        //if the player dexterity is higher than the monsters the player gets to attack first
         sleep(2);
         std::cout<<"The "<<monster->name<<" is preparing to attack!"<<std::endl<<std::endl;
     }
@@ -105,20 +113,21 @@ void Combat::UserInterface(){
     std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
 }
 
-int Combat::SelectMove(){
-    int a = 0;
+int Combat::SelectMove();
+    int a = 0; //number to hold what attack the player wants to take
         std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        a = player->InputValidator(1,4);
+        a = player->InputValidator(1,4); //validates that a is a recivable number
         assert(a>0&&a<5);
         return a;
 }
 
 
 void Combat::Death() {
+    //if player or monster health is less than 0 than their health is reset to 0
     if (hpPlayer<0) {
         hpPlayer = 0;
-    } else if (hpMonster<0) {
+    } if (hpMonster<0) {
         hpMonster = 0;
     }
 }
@@ -126,7 +135,7 @@ void Combat::fight(){
     //while plyer is not dead player can attack. after player attacks, monster also attacks if it is not dead, ending the turn
     system("clear");
     std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
-    Combat::UserInterface();
+    Combat::UserInterface(); //battle begining
     while(1==1){
         if(hpPlayer < 1) {
             //if player is dead displays game over message, later to be replaced by some sort of end screen with stats
@@ -134,22 +143,24 @@ void Combat::fight(){
             gamestats->printStats();
             break;
         } else if (hpMonster < 1) {
+            //if the monster is dead then the player may level up and increase stats, then starting the next battle
             Combat::PostCombat();
             break;
         }
-        turncount++;
-        int move = SelectMove();
-        Combat::CritChance();
+        turncount++; //increases turncount
+        int move = SelectMove(); //user selects the move of the player
+        Combat::CritChance(); //calculates crit chance for this move
         sleep(1);
         system("clear");
         if (move<4){
             if (monster->dexterity>player->dexterity) {
+                //if the monster attacks first
                 hpPlayer = hpPlayer-monster->damage*1.25*monster->crit;
                 if(hpPlayer>0){
                     hpMonster = hpMonster-player->damage*move*player->crit;
                     gamestats->damageDealt+=player->damage*move*player->crit;
                 }
-                Death();
+                Death(); //checks for death
             }
             else{
                 //otherwise the player attacks first
@@ -158,8 +169,9 @@ void Combat::fight(){
                 if(hpMonster>0){
                     hpPlayer = hpPlayer-monster->damage*monster->crit;
                 }
-                Death();
+                Death(); //checks for death
             }
+            //message display for the amount of damage the player dealt and if it was a critical strike
             std::cout<<"You dealt ";
             if(player->crit>1){
                 std::cout<<"a critical strike of "; 
@@ -167,6 +179,7 @@ void Combat::fight(){
             }
             std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
             if(hpMonster>0){
+                //message dislay for the amount of damage the monster dealt and if it was a critical strike
                 std::cout<<"The monster dealt ";
                 if(monster->crit>1){
                     std::cout<<"a critical strike of ";
@@ -203,9 +216,11 @@ void Combat::fight(){
 
 
 void Combat::CritChance() {
+    //resets random seed
     srand(time(NULL));
     monster->crit = 1;
     player->crit = 1;
+    //random if monster and/or player get to crit on their attack
     if((rand() % monster->critChance)>(rand() % 20)){
         monster->crit = 5;
     }
