@@ -171,7 +171,15 @@ void Combat::fight(){
             }
             
         } else {
-            //if the player chooses to dodge
+            Combat::Dodge();
+        }
+        //interface that explains how much damage was taken and how much damage was dealt.
+        std::cout<<"Player's Health      Monster's Health"<<std::endl;
+        std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
+    }
+}
+void Combat::Dodge(){
+    //if the player chooses to dodge
             srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
             int playerDodgeChance = (rand() % 25+10*player->dexterity);
             int monsterDodgeChance = (rand() % 25+10*monster->dexterity);
@@ -180,32 +188,25 @@ void Combat::fight(){
                 std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
                 std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)*monstermove<<" damage to you!"<<std::endl<<std::endl;
                 hpPlayer = hpPlayer-monster->damage*monstermove;
-                Death();
             } else {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
                 std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*1.5<<" damage to the monster!"<<std::endl<<std::endl;
                 hpMonster = hpMonster-player->damage*1.5;
                 gamestats->damageDealt+=player->damage*1.5;
-                Death();
             }
-        }
-        //interface that explains how much damage was taken and how much damage was dealt.
-        std::cout<<"Player's Health      Monster's Health"<<std::endl;
-        std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
-    }
+            Death();
 }
-
 
 void Combat::CritChance() {
     srand(time(NULL)); //resets random seed
     monster->crit = 1;
     player->crit = 1;
     //random if monster and/or player get to crit on their attack based on critChance stat
-    if((rand() % monster->critChance+10/monstermove)>(rand() % 20)){
+    if((rand() % (monster->critChance+10/monstermove))>(rand() % 20)){
         monster->crit = 5;
     }
-    if((rand() % player->critChance+10/move)>(rand() % 20)){
+    if((rand() % (player->critChance+10/move))>(rand() % 20)){
         player->crit = 5;
     }
 }

@@ -15,6 +15,7 @@ class Combat{
     void UserInterface(); //happens at the very begining of when a combat is taking place to say who gets the first hit
     void Death(); //if monster or player health decreases past 0 then this function will change their health to 0 to display correctly
     void CritChance(); //calculates the critical chance of the monster and player
+    void Dodge(); //function to calcul;ate whether dodge is successful
     
     int move; //the move selected by the player
     int monstermove; //move randomyl selected by the monster

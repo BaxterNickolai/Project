@@ -61,7 +61,7 @@ void Player::selectNum(int stat){
             points = points-selectedNum;
             break;
         case 2: //if max health chosen
-            maxHealth = maxHealth+selectedNum;
+            maxHealth = maxHealth+selectedNum*5;
             points = points-selectedNum;
             break;
         case 3: //if crit chance chosen

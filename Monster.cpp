@@ -88,7 +88,7 @@ void Monster::setMonster() {
             dexterity = pow(level, 1.25) + 2;
             break;
         case 12: name = "Wizard";
-            damage = pow(level, 1.25) + 3;
+            damage = pow(level, 1.25) + 10;
             maxHealth = pow(level, 1.25) + 10;
             critChance = pow(level, 1.25) + 15;
             dexterity = pow(level, 1.25) + 2;
