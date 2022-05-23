@@ -11,7 +11,8 @@ Monster::Monster() {
     maxHealth = 0;
     critChance = 0;
     dexterity = 0;
-    name = "?";
+    level =1;
+    name = "?"; 
 }
 
 void Monster::setMonster() {
@@ -34,7 +35,7 @@ void Monster::setMonster() {
             dexterity = pow(level, 1.25) + 1;
             break;
         case 3: name = "Assassin";
-            damage = pow(level, 1.25) + 1;
+            damage = pow(level, 1.25) + 5;
             maxHealth = pow(level, 1.25) + 6;
             critChance = pow(level, 1.25) + 20;
             dexterity = pow(level, 1.25) + 5;
