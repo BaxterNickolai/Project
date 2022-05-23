@@ -3,11 +3,14 @@
 #include <iostream>
 class GameStats{
     public:
-    GameStats();
-    int monstersKilled;
-    int level;
-    int playerCrits;
-    int damageDealt;
-    void printStats();
+    
+    GameStats(); //initalises the gamestats values
+    void printStats(); //prints the gamestats for the player
+    
+    int monstersKilled; // the number of monsters killed
+    int level; // the level of the player
+    int playerCrits; //the number of crits dealt
+    int damageDealt; //the amount of damage dealt
+    
 }; 
 #endif //GAMESTATS_H_

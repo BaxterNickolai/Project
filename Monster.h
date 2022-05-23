@@ -3,9 +3,11 @@
 #include <iostream>
 #include <string>
 #include "Character.h"
-class Monster : public Character{
+class Monster : public Character {
     public:
+    
     Monster(); //initalised attributes (ints and string)
-    void setMonster(); //sets monsters stats
+    void setMonster(); //sets monster name and attributed stats
+    
 };
 #endif //MONSTER_H_
