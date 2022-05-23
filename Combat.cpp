@@ -21,7 +21,6 @@ void Combat::PreCombat(){
     monster = new Monster; //creates a monster object
     monster->setMonster(); //chooses what monster is spawned
     hpMonster = monster->maxHealth;
-    hpPlayer = player->maxHealth;
     turncount = 0; //initalises turncount as 0 and sets Combat::fight();
     Combat::fight();
 }
@@ -71,6 +70,7 @@ void Combat::PostCombat(){
                     std::cout<<"Dexterity has increased: "<<player->dexterity-1<<" -> "<<player->dexterity<<std::endl<<std::endl;
                     break;
         }
+        hpPlayer = player->maxHealth;
     }
     
     gamestats->monstersKilled++; //increases number of monsters killed in gamestats
@@ -173,18 +173,18 @@ void Combat::fight(){
         } else {
             //if the player chooses to dodge
             srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
-            int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
-            int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
+            int playerDodgeChance = (rand() % 25+10*player->dexterity);
+            int monsterDodgeChance = (rand() % 25+10*monster->dexterity);
             if (monsterDodgeChance>playerDodgeChance) {
                 //monster attacks first and player looses its turn.
                 std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
-                std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                hpPlayer = hpPlayer-monster->damage*monstermove*monstermove;
+                std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)*monstermove<<" damage to you!"<<std::endl<<std::endl;
+                hpPlayer = hpPlayer-monster->damage*monstermove;
                 Death();
             } else {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
-                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*move<<" damage to the monster!"<<std::endl<<std::endl;
+                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*1.5<<" damage to the monster!"<<std::endl<<std::endl;
                 hpMonster = hpMonster-player->damage*1.5;
                 gamestats->damageDealt+=player->damage*1.5;
                 Death();
