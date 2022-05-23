@@ -34,13 +34,14 @@ int Player::selectStat(){
     std::cout<<"1    Damage"<<std::endl<<"2    Max Health"<<std::endl<<"3    Crit Chance"<<std::endl<<"4    Dexterity"<<std::endl<<std::endl<<"> ";
     int selectedStat;
     selectedStat = InputValidator(1,4);
+    //returns stat selected
     return selectedStat;
 }
 void Player::selectNum(int stat){
     //clear console
     system ("clear");
     std::string statName = ".";
-    switch (stat){
+    switch (stat) {
         case 1:statName = "Damage";
         break;
         case 2:statName = "Max Health";
@@ -54,23 +55,23 @@ void Player::selectNum(int stat){
     std::cout<<"How many points do you want to allocate to "<<statName<<"?"<<std::endl<<"Points remaining: "<<points<<std::endl<<std::endl<<"> ";
     int selectedNum;
     selectedNum = InputValidator(0,points);
-     switch (stat){
-        case 1: //if damage chosen
-        damage = damage+selectedNum;
-        points = points-selectedNum;
-        break;
+        switch (stat){
+            case 1: //if damage chosen
+            damage = damage+selectedNum;
+            points = points-selectedNum;
+            break;
         case 2: //if max health chosen
-        maxHealth = maxHealth+selectedNum;
-        points = points-selectedNum;
-        break;
+            maxHealth = maxHealth+selectedNum;
+            points = points-selectedNum;
+            break;
         case 3: //if crit chance chosen
-        critChance = critChance+selectedNum;
-        points = points-selectedNum;
-        break;
+            critChance = critChance+selectedNum;
+            points = points-selectedNum;
+            break;
         case 4: //if dexterity chosen
-        dexterity = dexterity+selectedNum;
-        points = points-selectedNum;
-        break;
+            dexterity = dexterity+selectedNum;
+            points = points-selectedNum;
+            break;
     }
 }
 

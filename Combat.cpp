@@ -10,24 +10,19 @@
 #include <limits>
 #include <cassert>
 Combat::Combat(){
-    //sets the initial current health of player
-    player = new Player;
+    player = new Player; //sets the player object
     player->setStats();
     hpPlayer = player->maxHealth;
     turncount = 0;
-    //sets new GameStats for this game
-    gamestats = new GameStats;
+    gamestats = new GameStats; //sets new GameStats for this game
 }
 
 void Combat::PreCombat(){
-    //creates a monster object
-    monster = new Monster;
-    //chooses what monster is spawned
-    monster->setMonster();
+    monster = new Monster; //creates a monster object
+    monster->setMonster(); //chooses what monster is spawned
     hpMonster = monster->maxHealth;
     hpPlayer = player->maxHealth;
-    //initalises turncount as 0 and sets Combat::fight();
-    turncount = 0;
+    turncount = 0; //initalises turncount as 0 and sets Combat::fight();
     Combat::fight();
 }
 
@@ -51,21 +46,18 @@ void Combat::PostCombat(){
     const int requiredXPscale = 3;
     int XPmax = requiredXPscale*pow(requiredXPbase, player->level);
     assert(XPmax>0);
-    //allows player to level up
-    if(player->xp>=XPmax){
+    
+    
+    if(player->xp>=XPmax) { //if level up
         player->xp -= XPmax;
-        //randomly cooses what stat gets improved upon level up
-        StatType selectedStat = (StatType) RandRange(1,4);
+        StatType selectedStat = (StatType) RandRange(1,4);  //randomly cooses what stat gets improved upon level up
         assert((int)selectedStat>=1);
         assert((int)selectedStat<=4);
         player->level++;
         monster->level++;
         gamestats->level++;
-        //prints new level
-        std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl;
-
-        //informs player of what stat increased
-        switch (selectedStat){
+        std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl; //prints new level
+        switch (selectedStat){ //informs player of what stat increased and increases it
             case StatType::maxHealth: player->maxHealth++;
                     std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
                     break;
@@ -80,22 +72,20 @@ void Combat::PostCombat(){
                     break;
         }
     }
-    //increases number of monsters killed in gamestats
-    gamestats->monstersKilled++;
+    
+    gamestats->monstersKilled++; //increases number of monsters killed in gamestats
     sleep(1);
-    //gives the player a chance to read before entering something
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
-    int d;
+    int d; //gives the player a chance to read before entering something
     std::cin>>d;
     std::cin.clear();
     system("clear");
     std::cin.ignore(10000, '\n');
-    //deletes the monster previously created
-    delete monster;
-    Combat::PreCombat();
+    delete monster; //deletes the monster previously created
+    Combat::PreCombat(); //initiates new combat
 }
 
-void Combat::UserInterface(){
+void Combat::UserInterface() {
     //for the begining of the fight sequence
     if (monster->dexterity>player->dexterity) {
         //if the monster dexterity is higher than the players the monster gets to attack first
@@ -115,11 +105,11 @@ void Combat::UserInterface(){
 
 int Combat::SelectMove();
     int a = 0; //number to hold what attack the player wants to take
-        std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
-        std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-        a = player->InputValidator(1,4); //validates that a is a recivable number
-        assert(a>0&&a<5);
-        return a; //returns number
+    std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
+    std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
+    a = player->InputValidator(1,4); //validates that a is a recivable number
+    assert(a>0&&a<5);
+    return a; //returns number
 }
 
 
@@ -147,12 +137,14 @@ void Combat::fight(){
             Combat::PostCombat();
             break;
         }
+        
         turncount++; //increases turncount
         int move = SelectMove(); //user selects the move of the player
         Combat::CritChance(); //calculates crit chance for this move
         sleep(1);
         system("clear");
-        if (move<4){
+        
+        if (move<4) {
             if (monster->dexterity>player->dexterity) {
                 //if the monster attacks first
                 hpPlayer = hpPlayer-monster->damage*1.25*monster->crit;
@@ -161,8 +153,7 @@ void Combat::fight(){
                     gamestats->damageDealt+=player->damage*move*player->crit;
                 }
                 Death(); //checks for death
-            }
-            else{
+            } else {
                 //otherwise the player attacks first
                 hpMonster = hpMonster-player->damage*move*player->crit;
                 gamestats->damageDealt+=player->damage*move*player->crit;
@@ -186,11 +177,10 @@ void Combat::fight(){
                 }
                 std::cout<<monster->damage*monster->crit<<" to you"<<std::endl;
             }
-        }
-        else {
+            
+        } else {
             //if the player chooses to dodge
-            //gives number between 0 and 100 chance for dodge for player and monster
-            srand(time(NULL));
+            srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
             int playerDodgeChance = ((rand() % 25)+25)*log(player->dexterity);
             int monsterDodgeChance = ((rand() % 25)+25)*log(monster->dexterity);
             if (monsterDodgeChance>playerDodgeChance) {
@@ -216,11 +206,10 @@ void Combat::fight(){
 
 
 void Combat::CritChance() {
-    //resets random seed
-    srand(time(NULL));
+    srand(time(NULL)); //resets random seed
     monster->crit = 1;
     player->crit = 1;
-    //random if monster and/or player get to crit on their attack
+    //random if monster and/or player get to crit on their attack based on critChance stat
     if((rand() % monster->critChance)>(rand() % 20)){
         monster->crit = 5;
     }
