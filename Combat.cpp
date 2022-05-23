@@ -112,21 +112,6 @@ int Combat::SelectMove(){
         a = player->InputValidator(1,4);
         assert(a>0&&a<5);
         return a;
-        system("clear");
-            while(1!=2){
-                int a = player->InputValidator(1,4);
-                if (a!=0){
-                    assert(a>0&&a<5);
-                    return a;
-                    system("clear");
-                } else {
-                std::cout<<"Not a vaild input, enter number between 1 and 4."<<std::endl;
-                //delay of 2 seconds
-                sleep(2);
-                int a = Combat::player->InputValidator(1,4);
-                }
-            }
-    return 0;
 }
 
 

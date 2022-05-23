@@ -24,7 +24,5 @@ class Combat{
     int hpMonster;
     int state;
     int turncount;
-    
-    
 };
 #endif //COMBAT_H_
