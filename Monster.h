@@ -8,6 +8,6 @@ class Monster : public Character {
     
     Monster(); //initalised attributes (ints and string)
     void setMonster(); //sets monster name and attributed stats
-    
+    int SelectMove();
 };
 #endif //MONSTER_H_

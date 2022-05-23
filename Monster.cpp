@@ -143,3 +143,9 @@ void Monster::setMonster() {
             break;
     }
 }
+int Monster::SelectMove(){
+    int a =1;
+    srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
+    a = ((rand() % 3)+1);
+    return a; //returns number
+}

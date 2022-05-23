@@ -7,25 +7,6 @@
 #include "GameStats.h"
 class Combat{
     public:
-    Combat();
-    void PreCombat();
-    void PostCombat();
-    void fight();
-    int SelectMove();
-    void UserInterface();
-    int InputValidator(int, int);
-    void Death();
-    void CritChance();
-    int move;
-    int hpPlayer;
-    Player *player;
-    Monster *monster;
-    GameStats *gamestats; 
-    int hpMonster;
-    int state;
-    int turncount;
-
-    
     Combat(); //initalises the combat sequences by reseting the player
     void PreCombat(); //choses new monster to fight and then sets off fight()
     void fight(); //calculates the damages of the monster and player, based on randomness and what the player inputs from other combat functions
@@ -36,6 +17,7 @@ class Combat{
     void CritChance(); //calculates the critical chance of the monster and player
     
     int move; //the move selected by the player
+    int monstermove; //move randomyl selected by the monster
     int hpPlayer; //the current hp of the player in combat
     Player *player; //the player int combat
     Monster *monster; //the monster in combat

@@ -103,15 +103,6 @@ void Combat::UserInterface() {
     std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
 }
 
-int Combat::SelectMove();
-    int a = 0; //number to hold what attack the player wants to take
-    std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
-    std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-    a = player->InputValidator(1,4); //validates that a is a recivable number
-    assert(a>0&&a<5);
-    return a; //returns number
-}
-
 
 void Combat::Death() {
     //if player or monster health is less than 0 than their health is reset to 0
@@ -139,7 +130,8 @@ void Combat::fight(){
         }
         
         turncount++; //increases turncount
-        int move = SelectMove(); //user selects the move of the player
+        move = player->SelectMove(); //user selects the move of the player
+        monstermove = monster->SelectMove(); //randomly chooses what attack monster will use
         Combat::CritChance(); //calculates crit chance for this move
         sleep(1);
         system("clear");
@@ -147,7 +139,7 @@ void Combat::fight(){
         if (move<4) {
             if (monster->dexterity>player->dexterity) {
                 //if the monster attacks first
-                hpPlayer = hpPlayer-monster->damage*1.25*monster->crit;
+                hpPlayer = hpPlayer-monster->damage*monstermove*monster->crit;
                 if(hpPlayer>0){
                     hpMonster = hpMonster-player->damage*move*player->crit;
                     gamestats->damageDealt+=player->damage*move*player->crit;
@@ -158,7 +150,7 @@ void Combat::fight(){
                 hpMonster = hpMonster-player->damage*move*player->crit;
                 gamestats->damageDealt+=player->damage*move*player->crit;
                 if(hpMonster>0){
-                    hpPlayer = hpPlayer-monster->damage*monster->crit;
+                    hpPlayer = hpPlayer-monster->damage*monstermove*monster->crit;
                 }
                 Death(); //checks for death
             }
@@ -175,7 +167,7 @@ void Combat::fight(){
                 if(monster->crit>1){
                     std::cout<<"a critical strike of ";
                 }
-                std::cout<<monster->damage*monster->crit<<" to you"<<std::endl;
+                std::cout<<monster->damage*monstermove*monster->crit<<" to you"<<std::endl;
             }
             
         } else {
@@ -187,7 +179,7 @@ void Combat::fight(){
                 //monster attacks first and player looses its turn.
                 std::cout<<"Your attempt to dodge has failed, losing your turn."<<std::endl;
                 std::cout<<"The "<<monster->name<<" dealt "<<(monster->damage)<<" damage to you!"<<std::endl<<std::endl;
-                hpPlayer = hpPlayer-monster->damage;
+                hpPlayer = hpPlayer-monster->damage*monstermove*monstermove;
                 Death();
             } else {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
@@ -210,7 +202,7 @@ void Combat::CritChance() {
     monster->crit = 1;
     player->crit = 1;
     //random if monster and/or player get to crit on their attack based on critChance stat
-    if((rand() % monster->critChance)>(rand() % 20)){
+    if((rand() % monster->critChance+10/monstermove)>(rand() % 20)){
         monster->crit = 5;
     }
     if((rand() % player->critChance+10/move)>(rand() % 20)){
