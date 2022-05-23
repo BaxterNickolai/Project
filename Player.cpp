@@ -18,16 +18,6 @@ Player::Player() {
     points = 10;
 }
 
-void Player::setName(std::string playerName) {
-    //gives the player their name depending on their input from the main funciton
-    name = playerName;
-}
-
-std::string Player::getName() {
-    //returns the player name
-    return name;
-}
-
 void Player::setStats() {
     //while the points available to give to the players stats is greater than 0, therefore when there are still points to allocate
     while (points>0) {
@@ -51,16 +41,13 @@ void Player::selectNum(int stat){
     system ("clear");
     std::string statName = ".";
     switch (stat){
-        case 1:
-        statName = "Damage";
+        case 1:statName = "Damage";
         break;
         case 2:statName = "Max Health";
         break;
-        case 3:
-        statName = "Crit Chance";
+        case 3:statName = "Crit Chance";
         break;
-        case 4:
-        statName = "Dexterity";
+        case 4:statName = "Dexterity";
         break;
     }
     //how many points does the user want to allocate to a stat
@@ -68,19 +55,19 @@ void Player::selectNum(int stat){
     int selectedNum;
     selectedNum = InputValidator(0,points);
      switch (stat){
-        case 1:
+        case 1: //if damage chosen
         damage = damage+selectedNum;
         points = points-selectedNum;
         break;
-        case 2:
+        case 2: //if max health chosen
         maxHealth = maxHealth+selectedNum;
         points = points-selectedNum;
         break;
-        case 3:
+        case 3: //if crit chance chosen
         critChance = critChance+selectedNum;
         points = points-selectedNum;
         break;
-        case 4:
+        case 4: //if dexterity chosen
         dexterity = dexterity+selectedNum;
         points = points-selectedNum;
         break;
@@ -89,16 +76,20 @@ void Player::selectNum(int stat){
 
 
 int Player::InputValidator(int min, int max) {
+    //function to validate the inputs from the user into the game
     int input=0;
     while(1!=2){
-        if(std::cin >> input&&input<=max&input>=min){
+        if(std::cin >> input&&input<=max&input>=min) {
+            //if a valid input
             break;
-        }else{
-        std::cin.clear();
-        std::cin.ignore(10000, '\n');
-        std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl;
-        sleep(2);
+        } else {
+            //if not a valid input
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Not a valid input, please enter a number between "<<min<<" and "<<max<<std::endl;
+            sleep(2);
         }
     }
+    //returns the input
     return input;
 }

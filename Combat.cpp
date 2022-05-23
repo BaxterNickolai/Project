@@ -119,7 +119,7 @@ int Combat::SelectMove();
         std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
         a = player->InputValidator(1,4); //validates that a is a recivable number
         assert(a>0&&a<5);
-        return a;
+        return a; //returns number
 }
 
 
