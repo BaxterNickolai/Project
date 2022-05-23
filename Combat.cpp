@@ -52,13 +52,13 @@ void Combat::PostCombat(){
         StatType selectedStat = (StatType) RandRange(1,4);  //randomly cooses what stat gets improved upon level up
         assert((int)selectedStat>=1);
         assert((int)selectedStat<=4);
-        player->level++;
-        monster->level++;
-        gamestats->level++;
+        player->level++; //increases player level
+        monster->level++; //increases monster level
+        gamestats->level++; //increases player level that is recorded in stats
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl; //prints new level
         switch (selectedStat){ //informs player of what stat increased and increases it
-            case StatType::maxHealth: player->maxHealth++;
-                    std::cout<<"Maximum Health has increased: "<<player->maxHealth-1<<" -> "<<player->maxHealth<<std::endl<<std::endl;
+            case StatType::maxHealth: player->maxHealth+5; //if health is chosen, it increases by 5
+                    std::cout<<"Maximum Health has increased: "<<player->maxHealth-5<<" -> "<<player->maxHealth<<std::endl<<std::endl;
                     break;
             case StatType::damage: player->damage++;
                     std::cout<<"Damage has increased: "<<player->damage-1<<" -> "<<player->damage<<std::endl<<std::endl;
@@ -141,16 +141,16 @@ void Combat::fight(){
                 //if the monster attacks first
                 hpPlayer = hpPlayer-monster->damage*monstermove*monster->crit;
                 if(hpPlayer>0){
-                    hpMonster = hpMonster-player->damage*move*player->crit;
-                    gamestats->damageDealt+=player->damage*move*player->crit;
+                    hpMonster = hpMonster-player->damage*move*player->crit; //deals damage to the monster based on attack type and result of crit
+                    gamestats->damageDealt+=player->damage*move*player->crit; //records the damage dealt
                 }
                 Death(); //checks for death
             } else {
                 //otherwise the player attacks first
-                hpMonster = hpMonster-player->damage*move*player->crit;
-                gamestats->damageDealt+=player->damage*move*player->crit;
+                hpMonster = hpMonster-player->damage*move*player->crit; //deals damage to the monster based on attack type and result of crit
+                gamestats->damageDealt+=player->damage*move*player->crit; //records the damage dealt
                 if(hpMonster>0){
-                    hpPlayer = hpPlayer-monster->damage*monstermove*monster->crit;
+                    hpPlayer = hpPlayer-monster->damage*monstermove*monster->crit; //deals damage ot the player
                 }
                 Death(); //checks for death
             }
@@ -192,16 +192,17 @@ void Combat::Dodge(){
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
                 std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*1.5<<" damage to the monster!"<<std::endl<<std::endl;
-                hpMonster = hpMonster-player->damage*1.5;
-                gamestats->damageDealt+=player->damage*1.5;
+                int counterDMG=1.5;
+                hpMonster = hpMonster-player->damage*counterDMG; //deals counterattack damage
+                gamestats->damageDealt+=player->damage*counterDMG; //records damage dealt in counterattack
             }
-            Death();
+            Death(); //checks if player hp is less than 0, if so sets it to 0
 }
 
 void Combat::CritChance() {
     srand(time(NULL)); //resets random seed
-    monster->crit = 1;
-    player->crit = 1;
+    monster->crit = 1; //critical multiplier is 1 by default
+    player->crit = 1; //critical multiplier is 1 by default
     //random if monster and/or player get to crit on their attack based on critChance stat
     if((rand() % (monster->critChance+10/monstermove))>(rand() % 20)){
         monster->crit = 5;
