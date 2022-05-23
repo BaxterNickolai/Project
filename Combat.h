@@ -7,7 +7,6 @@
 #include "GameStats.h"
 class Combat{
     public:
-<<<<<<< HEAD
     Combat();
     void PreCombat();
     void PostCombat();
@@ -25,7 +24,7 @@ class Combat{
     int hpMonster;
     int state;
     int turncount;
-=======
+
     
     Combat(); //initalises the combat sequences by reseting the player
     void PreCombat(); //choses new monster to fight and then sets off fight()
@@ -45,6 +44,6 @@ class Combat{
     int state;
     int turncount; //how long a battle has been taking place by user turncount
     
->>>>>>> 074387807359ce44aab4fd5c4a34e85a7a680866
+
 };
 #endif //COMBAT_H_
