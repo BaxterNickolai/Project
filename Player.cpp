@@ -21,9 +21,9 @@ Player::Player() {
 void Player::setStats() {
     //while the points available to give to the players stats is greater than 0, therefore when there are still points to allocate
     while (points>0) {
-        int a = selectStat();
+        int stat = selectStat();
         //switch for 4 possible user inputs
-        selectNum(a);
+        selectNum(stat);
     }
 }
 int Player::selectStat(){
@@ -98,6 +98,6 @@ int Player::SelectMove(){
     int a = 0; //number to hold what attack the player wants to take
     std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
     std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-    a = InputValidator(1,4); //validates that a is a recivable number
+    a = InputValidator(1,4); //validates that a is a recievable number
     return a; //returns number
 }

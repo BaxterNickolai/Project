@@ -13,9 +13,10 @@ class Character{
     int level; //the level of monster or player
     int crit; //variable used to determine whether a critical hit happens
     std::string name; //the name of the monster or player
-    virtual int SelectMove(){
+    virtual int SelectMove(){ //virtual function for the player and monster to select between light medium or heavy attack
         return 0;
     }
+
     
 };
 #endif //CHARACTER_H_

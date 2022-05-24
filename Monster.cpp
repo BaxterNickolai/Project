@@ -15,6 +15,20 @@ Monster::Monster() {
     name = "?"; 
 }
 
+// Monster* Monster::createMonster(int level, bool spawnBoss = false){
+//     //sets a new random value for the random function
+//     srand(time(NULL));
+//     //produces a random number between 1 and 20
+//     int monsterNumber = 1+( rand() % 20 );
+//     //dependent on the random number a pre-set monster is generated
+//     switch (monsterNumber) {
+//         case 1: 
+//             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 5,pow(level, 1.25) + 8,  pow(level, 1.25) + 5, "Goblin");
+//     }
+// }
+
+
+
 void Monster::setMonster() {
     //sets a new random value for the random function
     srand(time(NULL));
@@ -100,7 +114,7 @@ void Monster::setMonster() {
             critChance = pow(level, 1.25) + 12;
             dexterity = pow(level, 1.25) + 1;
             break;
-        case 14: name = "Griffen";
+        case 14: name = "Griffin";
             damage = pow(level, 1.25) + 1;
             maxHealth = pow(level, 1.25) + 10;
             critChance = pow(level, 1.25) + 1;

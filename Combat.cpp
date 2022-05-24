@@ -9,16 +9,19 @@
 #include <time.h>
 #include <limits>
 #include <cassert>
+
 Combat::Combat(){
     player = new Player; //sets the player object
     player->setStats();
     hpPlayer = player->maxHealth;
     turncount = 0;
     gamestats = new GameStats; //sets new GameStats for this game
+    monster = nullptr;
 }
 
 void Combat::PreCombat(){
-    monster = new Monster; //creates a monster object
+    assert(monster == nullptr);
+    monster = new Monster(); //creates a monster object
     monster->setMonster(); //chooses what monster is spawned
     hpMonster = monster->maxHealth;
     turncount = 0; //initalises turncount as 0 and sets Combat::fight();
@@ -43,7 +46,7 @@ void Combat::PostCombat(){
     player->xp++;
     const int requiredXPbase = 1.2;
     const int requiredXPscale = 3;
-    int XPmax = requiredXPscale*pow(requiredXPbase, player->level);
+    int XPmax = requiredXPscale*pow(requiredXPbase, player->level); //xp required to level up scales exponentially
     assert(XPmax>0);
     
     
@@ -81,7 +84,8 @@ void Combat::PostCombat(){
     std::cin.clear();
     system("clear");
     std::cin.ignore(10000, '\n');
-    delete monster; //deletes the monster previously created
+    delete monster;//deletes the monster previously created
+    monster = nullptr;
     Combat::PreCombat(); //initiates new combat
 }
 
@@ -155,12 +159,14 @@ void Combat::fight(){
                 Death(); //checks for death
             }
             //message display for the amount of damage the player dealt and if it was a critical strike
-            std::cout<<"You dealt ";
-            if(player->crit>1){
-                std::cout<<"a critical strike of "; 
-                gamestats->playerCrits++;
+            if(hpPlayer>0){
+                std::cout<<"You dealt ";
+                if(player->crit>1){
+                    std::cout<<"a critical strike of "; 
+                    gamestats->playerCrits++;
+                }
+                std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
             }
-            std::cout<<player->damage*move*player->crit<<" damage to the "<<monster->name<<std::endl;
             if(hpMonster>0){
                 //message dislay for the amount of damage the monster dealt and if it was a critical strike
                 std::cout<<"The monster dealt ";
@@ -204,10 +210,10 @@ void Combat::CritChance() {
     monster->crit = 1; //critical multiplier is 1 by default
     player->crit = 1; //critical multiplier is 1 by default
     //random if monster and/or player get to crit on their attack based on critChance stat
-    if((rand() % (monster->critChance+10/monstermove))>(rand() % 20)){
-        monster->crit = 5;
+    if((rand() % (monster->critChance+20/monstermove))>(rand() % 30)){
+        monster->crit = 5; //if monster crit, critical multiplier becomes 5
     }
-    if((rand() % (player->critChance+10/move))>(rand() % 20)){
-        player->crit = 5;
+    if((rand() % (player->critChance+20/move))>(rand() % 30)){
+        player->crit = 5; //if player crits, critical multiplier becomes 5
     }
 }
