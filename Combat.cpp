@@ -119,7 +119,9 @@ void Combat::Death() {
 void Combat::fight(){
     //while plyer is not dead player can attack. after player attacks, monster also attacks if it is not dead, ending the turn
     system("clear");
-    std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl;
+    if (turncount <3){
+        std::cout<<"A "<<monster->name<<" has appeared!"<<std::endl; 
+    }
     Combat::UserInterface(); //battle begining
     while(1==1){
         if(hpPlayer < 1) {
@@ -169,11 +171,11 @@ void Combat::fight(){
             }
             if(hpMonster>0){
                 //message dislay for the amount of damage the monster dealt and if it was a critical strike
-                std::cout<<"The monster dealt ";
+                std::cout<<"The "<<monster->name<<" dealt ";
                 if(monster->crit>1){
                     std::cout<<"a critical strike of ";
                 }
-                std::cout<<monster->damage*monstermove*monster->crit<<" to you"<<std::endl;
+                std::cout<<monster->damage*monstermove*monster->crit<<" damage to you"<<std::endl;
             }
             
         } else {

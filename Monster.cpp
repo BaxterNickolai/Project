@@ -12,7 +12,7 @@ Monster::Monster() {
     critChance = 0;
     dexterity = 0;
     level =1;
-    name = "?"; 
+    name = "?";
 }
 Monster::Monster(int dmg, int hp, int crit, int dex, std::string mname){
     //sets the monsters stats based o n imput
@@ -31,45 +31,45 @@ Monster* Monster::createMonster(int level){
     int monsterNumber = 1+( rand() % 20 );
     //dependent on the random number a pre-set monster is generated
     switch (monsterNumber) {
-        case 1: 
+        case 1:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 5,pow(level, 1.25) + 8,  pow(level, 1.25) + 5, "Goblin");
-        case 2: 
+        case 2:
             return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 20,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Golem");
-        case 3: 
+        case 3:
             return new Monster(pow(level, 1.25) + 5, pow(level, 1.25) + 6,pow(level, 1.25) + 20,  pow(level, 1.25) + 5, "Assassin");
-        case 4: 
+        case 4:
             return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 30,pow(level, 1.25) + 1,  pow(level, 1.25) + 3, "Baron");
-        case 5: 
+        case 5:
             return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 30,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Knight");
-        case 6: 
+        case 6:
             return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 20,pow(level, 1.25) + 5,  pow(level, 1.25) + 1, "Orc");
-        case 7: 
+        case 7:
             return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 50,pow(level, 1.25) + 2,  pow(level, 1.25) + 1, "Ogre");
-        case 8: 
+        case 8:
             return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 20,pow(level, 1.25) + 4,  pow(level, 1.25) + 2, "Paladin");
-        case 9: 
+        case 9:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 1,pow(level, 1.25) + 1,  pow(level, 1.25) + 1, "Wisp");
-        case 10: 
+        case 10:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 15,pow(level, 1.25) + 5,  pow(level, 1.25) + 3, "Mummy");
-        case 11: 
+        case 11:
             return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 40,pow(level, 1.25) + 1,  pow(level, 1.25) + 2, "Wyvern");
-        case 12: 
+        case 12:
             return new Monster(pow(level, 1.25) + 10, pow(level, 1.25) + 10,pow(level, 1.25) + 15,  pow(level, 1.25) + 2, "Wizard");
-        case 13: 
+        case 13:
             return new Monster(pow(level, 1.25) + 5, pow(level, 1.25) + 50,pow(level, 1.25) + 12,  pow(level, 1.25) + 1, "Dragon");
-        case 14: 
+        case 14:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 10,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Griffin");
-        case 15: 
+        case 15:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 50,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Angel");
-        case 16: 
+        case 16:
             return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 10,pow(level, 1.25) + 4,  pow(level, 1.25) + 1, "Demon");
-        case 17: 
+        case 17:
             return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 30,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Rock Elemental");
-        case 18: 
+        case 18:
             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 20,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Leprechaun");
-        case 19: 
+        case 19:
             return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 50,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Giant");
-        case 20: 
+        case 20:
             return new Monster(pow(level, 1.25) , pow(level, 1.25) + 100,pow(level, 1.25) ,  pow(level, 1.25) , "Jeff's Mum");
     }
     return 0;
