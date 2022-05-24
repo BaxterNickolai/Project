@@ -10,9 +10,20 @@ void test1(){
 }
 
 void test2(){
-    
+    Combat combat;
+    combat.PreCombat(); 
+}
+
+void test3(){
+    Combat combat;
+    Monster monster;
+    combat.hpMonster = monster.maxHealth;
+    combat.hpMonster = -50;
+    combat.hpPlayer = -5;
+    combat.Death();
+    std::cout<<"hpMonster = "<<combat.hpMonster<<" should, reset to 0"<<std::endl<<"hpPlayer = "<<combat.hpPlayer<<" should be 0"<<std::endl;
 }
 
 int main(){
-    test1();
+    test3();
 }

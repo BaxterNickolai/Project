@@ -44,6 +44,7 @@ int RandRange(int min, int max){
 void Combat::PostCombat(){
     //gives the player xp after combat ends
     player->xp++;
+    std::cout<<player->name;
     const int requiredXPbase = 1.2;
     const int requiredXPscale = 3;
     int XPmax = requiredXPscale*pow(requiredXPbase, player->level); //xp required to level up scales exponentially
@@ -200,8 +201,8 @@ void Combat::Dodge(){
             } else {
                 //need to add interface that explains how much damage was taken and how much damage was dealt.
                 //player attacks first and monster looses its turn.
-                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*1.5<<" damage to the monster!"<<std::endl<<std::endl;
-                int counterDMG=1.5;
+                int counterDMG=2;
+                std::cout<<"Your attempt to dodge has succeeded!"<<std::endl<<"You counterattack, dealing "<<player->damage*counterDMG<<" damage to the monster!"<<std::endl<<std::endl;
                 hpMonster = hpMonster-player->damage*counterDMG; //deals counterattack damage
                 gamestats->damageDealt+=player->damage*counterDMG; //records damage dealt in counterattack
             }

@@ -7,7 +7,7 @@ int main(){
             std::cout<<"PlayerTest 1 failed";
         }
     }
-    
+
     {
         Player player;
         player.selectStat();
@@ -15,7 +15,7 @@ int main(){
             std::cout<<"PlayerTest 2 failed"
         }
     }
-    
+
     {
         Player player;
         player.selectNum(2);
@@ -26,7 +26,7 @@ int main(){
             std::cout<<"PlayerTest 4 failed";
         }
     }
-    
+
     {
         Player player;
         player.SelectMove();
