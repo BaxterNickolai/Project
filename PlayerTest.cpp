@@ -33,9 +33,5 @@ int main(){
         if (move>4||move<1) {
             std::cout<<"PlayerTest 5 failed";
         }
-        if (move!=InputValidator) {
-            std::cout<<"PlayerTest 6 failed";
-        }
     }
-    
 }
