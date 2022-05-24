@@ -14,153 +14,66 @@ Monster::Monster() {
     level =1;
     name = "?"; 
 }
-// Monster::Monster(int damage, int maxHealth, int critChance, int dexterity, std::string name)
-// :damage(damage), maxHealth(maxHealth), critChance(critChance), dexterity(dexterity), level(1), crit(1), name(name)
-// {
-// }
+Monster::Monster(int dmg, int hp, int crit, int dex, std::string mname)
+//:damage(dmg), maxHealth(hp), critChance(crit), dexterity(dex), level(1), crit(1), name(mname)
+{
+    damage = dmg;
+    maxHealth = hp;
+    critChance = crit;
+    dexterity = dex;
+    crit = 1;
+    name = mname;
+}
 
-// Monster* Monster::createMonster(int level, bool spawnBoss = false){
-//     //sets a new random value for the random function
-//     srand(time(NULL));
-//     //produces a random number between 1 and 20
-//     int monsterNumber = 1+( rand() % 20 );
-//     //dependent on the random number a pre-set monster is generated
-//     switch (monsterNumber) {
-//         case 1: 
-//             return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 5,pow(level, 1.25) + 8,  pow(level, 1.25) + 5, "Goblin");
-//     }
-// }
-
-
-
-void Monster::setMonster() {
+Monster* Monster::createMonster(int level){
     //sets a new random value for the random function
     srand(time(NULL));
     //produces a random number between 1 and 20
     int monsterNumber = 1+( rand() % 20 );
     //dependent on the random number a pre-set monster is generated
     switch (monsterNumber) {
-        case 1: name = "Goblin";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 5;
-            critChance = pow(level, 1.25) + 8;
-            dexterity = pow(level, 1.25) + 5;
-            break;
-        case 2: name = "Golem";
-            damage = pow(level, 1.25) + 3;
-            maxHealth = pow(level, 1.25) + 20;
-            critChance = pow(level, 1.25) + 3;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 3: name = "Assassin";
-            damage = pow(level, 1.25) + 5;
-            maxHealth = pow(level, 1.25) + 6;
-            critChance = pow(level, 1.25) + 20;
-            dexterity = pow(level, 1.25) + 5;
-            break;
-        case 4: name = "Baron";
-            damage = pow(level, 1.25) + 3;
-            maxHealth = pow(level, 1.25) + 30;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 3;
-            break;
-        case 5: name = "Knight";
-            damage = pow(level, 1.25) + 4;
-            maxHealth = pow(level, 1.25) + 30;
-            critChance = pow(level, 1.25) + 3;
-            dexterity = pow(level, 1.25) + 1;
-        break;
-        case 6: name = "Orc";
-            damage = pow(level, 1.25) + 2;
-            maxHealth = pow(level, 1.25) + 20;
-            critChance = pow(level, 1.25) + 5;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 7: name = "Ogre";
-            damage = pow(level, 1.25) + 2;
-            maxHealth = pow(level, 1.25) + 50;
-            critChance = pow(level, 1.25) + 2;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 8: name = "Paladin";
-            damage = pow(level, 1.25) + 4;
-            maxHealth = pow(level, 1.25) + 20;
-            critChance = pow(level, 1.25) + 4;
-            dexterity = pow(level, 1.25) + 2;
-            break;
-        case 9: name = "Wisp";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 1;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 10: name = "Mummy";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 15;
-            critChance = pow(level, 1.25) + 5;
-            dexterity = pow(level, 1.25) + 3;
-            break;
-        case 11: name = "Wyvern";
-            damage = pow(level, 1.25) + 2;
-            maxHealth = pow(level, 1.25) + 40;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 2;
-            break;
-        case 12: name = "Wizard";
-            damage = pow(level, 1.25) + 10;
-            maxHealth = pow(level, 1.25) + 10;
-            critChance = pow(level, 1.25) + 15;
-            dexterity = pow(level, 1.25) + 2;
-            break;
-        case 13: name = "Dragon";
-            damage = pow(level, 1.25) + 5;
-            maxHealth = pow(level, 1.25) + 50;
-            critChance = pow(level, 1.25) + 12;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 14: name = "Griffin";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 10;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 5;
-            break;
-        case 15: name = "Angel";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 50;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 5;
-            break;
-        case 16: name = "Demon";
-            damage = pow(level, 1.25) + 4;
-            maxHealth = pow(level, 1.25) + 10;
-            critChance = pow(level, 1.25) + 4;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 17: name = "Rock Elemental";
-            damage = pow(level, 1.25) + 3;
-            maxHealth = pow(level, 1.25) + 30;
-            critChance = pow(level, 1.25) + 3;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 18: name = "Leprechaun";
-            damage = pow(level, 1.25) + 1;
-            maxHealth = pow(level, 1.25) + 20;
-            critChance = pow(level, 1.25) + 1;
-            dexterity = pow(level, 1.25) + 5;
-            break;
-        case 19: name = "Giant";
-            damage = pow(level, 1.25) + 4;
-            maxHealth = pow(level, 1.25) + 50;
-            critChance = pow(level, 1.25) + 3;
-            dexterity = pow(level, 1.25) + 1;
-            break;
-        case 20: name = "Jeff's Mum";
-            damage = pow(level, 1.25);
-            maxHealth = pow(level, 1.25) + 100;
-            critChance = pow(level, 1.25);
-            dexterity = pow(level, 1.25);
-            break;
+        case 1: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 5,pow(level, 1.25) + 8,  pow(level, 1.25) + 5, "Goblin");
+        case 2: 
+            return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 20,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Golem");
+        case 3: 
+            return new Monster(pow(level, 1.25) + 5, pow(level, 1.25) + 6,pow(level, 1.25) + 20,  pow(level, 1.25) + 5, "Assassin");
+        case 4: 
+            return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 30,pow(level, 1.25) + 1,  pow(level, 1.25) + 3, "Baron");
+        case 5: 
+            return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 30,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Knight");
+        case 6: 
+            return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 20,pow(level, 1.25) + 5,  pow(level, 1.25) + 1, "Orc");
+        case 7: 
+            return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 50,pow(level, 1.25) + 2,  pow(level, 1.25) + 1, "Ogre");
+        case 8: 
+            return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 20,pow(level, 1.25) + 4,  pow(level, 1.25) + 2, "Paladin");
+        case 9: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 1,pow(level, 1.25) + 1,  pow(level, 1.25) + 1, "Wisp");
+        case 10: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 15,pow(level, 1.25) + 5,  pow(level, 1.25) + 3, "Mummy");
+        case 11: 
+            return new Monster(pow(level, 1.25) + 2, pow(level, 1.25) + 40,pow(level, 1.25) + 1,  pow(level, 1.25) + 2, "Wyvern");
+        case 12: 
+            return new Monster(pow(level, 1.25) + 10, pow(level, 1.25) + 10,pow(level, 1.25) + 15,  pow(level, 1.25) + 2, "Wizard");
+        case 13: 
+            return new Monster(pow(level, 1.25) + 5, pow(level, 1.25) + 50,pow(level, 1.25) + 12,  pow(level, 1.25) + 1, "Dragon");
+        case 14: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 10,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Griffin");
+        case 15: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 50,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Angel");
+        case 16: 
+            return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 10,pow(level, 1.25) + 4,  pow(level, 1.25) + 1, "Demon");
+        case 17: 
+            return new Monster(pow(level, 1.25) + 3, pow(level, 1.25) + 30,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Rock Elemental");
+        case 18: 
+            return new Monster(pow(level, 1.25) + 1, pow(level, 1.25) + 20,pow(level, 1.25) + 1,  pow(level, 1.25) + 5, "Leprechaun");
+        case 19: 
+            return new Monster(pow(level, 1.25) + 4, pow(level, 1.25) + 50,pow(level, 1.25) + 3,  pow(level, 1.25) + 1, "Giant");
+        case 20: 
+            return new Monster(pow(level, 1.25) , pow(level, 1.25) + 100,pow(level, 1.25) ,  pow(level, 1.25) , "Jeff's Mum");
     }
+    return 0;
 }
 int Monster::SelectMove(){
     int move =1;
