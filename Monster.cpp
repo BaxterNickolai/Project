@@ -14,9 +14,8 @@ Monster::Monster() {
     level =1;
     name = "?"; 
 }
-Monster::Monster(int dmg, int hp, int crit, int dex, std::string mname)
-//:damage(dmg), maxHealth(hp), critChance(crit), dexterity(dex), level(1), crit(1), name(mname)
-{
+Monster::Monster(int dmg, int hp, int crit, int dex, std::string mname){
+    //sets the monsters stats based o n imput
     damage = dmg;
     maxHealth = hp;
     critChance = crit;
@@ -26,7 +25,7 @@ Monster::Monster(int dmg, int hp, int crit, int dex, std::string mname)
 }
 
 Monster* Monster::createMonster(int level){
-    //sets a new random value for the random function
+    //sets a new seed for the random function
     srand(time(NULL));
     //produces a random number between 1 and 20
     int monsterNumber = 1+( rand() % 20 );
@@ -77,7 +76,7 @@ Monster* Monster::createMonster(int level){
 }
 int Monster::SelectMove(){
     int move =1;
-    srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
+    srand(time(NULL)); //sets new random seed
     move = ((rand() % 3)+1);
-    return move; //returns number
+    return move; //returns number that corresponds to the monsters selected move
 }

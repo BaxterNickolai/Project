@@ -21,8 +21,7 @@ Combat::Combat(){
 
 void Combat::PreCombat(){
     assert(monster == nullptr); 
-    monster = new Monster;
-    monster->createMonster(player->level); //creates a monster object
+    monster=enemy->Monster::createMonster(player->level); //creates a monster object 
     //monster->setMonster(); //chooses what monster is spawned
     hpMonster = monster->maxHealth;
     turncount = 0; //initalises turncount as 0 and sets Combat::fight();

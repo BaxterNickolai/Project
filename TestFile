@@ -1,0 +1,9 @@
+test: run 
+	./run
+	
+test: MonsterTest.o Monster.o 
+	g++ MonsterTest.o Monster.o -o run 
+
+	
+Monster.o: Monster.h Monster.cpp
+	g++ -c Monster.cpp -o Monster.o

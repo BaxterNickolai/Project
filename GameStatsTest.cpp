@@ -5,6 +5,7 @@ int main(){
     GameStats gamestats;
     gamestats.printStats();
     }
+    
     {
     GameStats gamestats;
     gamestats.level = 5;
@@ -13,10 +14,6 @@ int main(){
     gamestats.playerCrits = 2;
     gamestats.printStats();
     }
-    
-    
-    
-    
     
     
     

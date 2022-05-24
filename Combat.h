@@ -22,6 +22,7 @@ class Combat{
     int hpPlayer; //the current hp of the player in combat
     Player *player; //the player int combat
     Monster *monster; //the monster in combat
+    Monster *enemy;
     GameStats *gamestats; //the gamestats for the game
     int hpMonster; //the current hp of the monster in combat
     int turncount; //how long a battle has been taking place by user turncount
