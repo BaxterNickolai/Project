@@ -14,6 +14,10 @@ Monster::Monster() {
     level =1;
     name = "?"; 
 }
+// Monster::Monster(int damage, int maxHealth, int critChance, int dexterity, std::string name)
+// :damage(damage), maxHealth(maxHealth), critChance(critChance), dexterity(dexterity), level(1), crit(1), name(name)
+// {
+// }
 
 // Monster* Monster::createMonster(int level, bool spawnBoss = false){
 //     //sets a new random value for the random function
@@ -33,9 +37,9 @@ void Monster::setMonster() {
     //sets a new random value for the random function
     srand(time(NULL));
     //produces a random number between 1 and 20
-    int a = 1+( rand() % 20 );
+    int monsterNumber = 1+( rand() % 20 );
     //dependent on the random number a pre-set monster is generated
-    switch (a) {
+    switch (monsterNumber) {
         case 1: name = "Goblin";
             damage = pow(level, 1.25) + 1;
             maxHealth = pow(level, 1.25) + 5;
@@ -159,8 +163,8 @@ void Monster::setMonster() {
     }
 }
 int Monster::SelectMove(){
-    int a =1;
+    int move =1;
     srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
-    a = ((rand() % 3)+1);
-    return a; //returns number
+    move = ((rand() % 3)+1);
+    return move; //returns number
 }

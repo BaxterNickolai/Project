@@ -79,8 +79,8 @@ void Combat::PostCombat(){
     gamestats->monstersKilled++; //increases number of monsters killed in gamestats
     sleep(1);
     std::cout<<"You have slain the enemy!"<<std::endl<<"Enter anything to continue > ";
-    int d; //gives the player a chance to read before entering something
-    std::cin>>d;
+    int tempValue; //gives the player a chance to read before entering something
+    std::cin>>tempValue;
     std::cin.clear();
     system("clear");
     std::cin.ignore(10000, '\n');

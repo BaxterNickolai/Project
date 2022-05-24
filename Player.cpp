@@ -95,9 +95,9 @@ int Player::InputValidator(int min, int max) {
     return input;
 }
 int Player::SelectMove(){
-    int a = 0; //number to hold what attack the player wants to take
+    int move = 0; //number to hold what attack the player wants to take
     std::cout<<"What action do you want to take?"<<std::endl<<std::endl;
     std::cout<<"1    Light Attack"<<std::endl<<"2    Medium Attack"<<std::endl<<"3    Heavy Attack"<<std::endl<<"4    Attempt Dodge"<<std::endl<<std::endl<<"> ";
-    a = InputValidator(1,4); //validates that a is a recievable number
-    return a; //returns number
+    move = InputValidator(1,4); //validates that a is a recievable number
+    return move; //returns number
 }
