@@ -57,7 +57,7 @@ void Combat::PostCombat(){
         assert((int)selectedStat<=4);
         player->level++; //increases player level
         monster->level++; //increases monster level
-        gamestats->level++; //increases player level that is recorded in stats
+        gamestats->level=player->level; //increases player level that is recorded in stats
         std::cout<<"You've leveled up! New level -> "<<player->level<<std::endl; //prints new level
         switch (selectedStat){ //informs player of what stat increased and increases it
             case StatType::maxHealth: player->maxHealth+5; //if health is chosen, it increases by 5
