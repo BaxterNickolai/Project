@@ -186,6 +186,7 @@ void Combat::fight(){
         std::cout<<"("<<hpPlayer<<"/"<<player->maxHealth<<")                ("<<hpMonster<<"/"<<monster->maxHealth<<")"<<std::endl<<std::endl;
     }
 }
+
 void Combat::Dodge(){
     //if the player chooses to dodge
             srand(time(NULL)); //gives number between 0 and 100 chance for dodge for player and monster
